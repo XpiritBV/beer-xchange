@@ -1,0 +1,70 @@
+﻿@page
+@model Xpirit.BeerXchange.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Beer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Beer.Id" />
+            <div class="form-group">
+                <label asp-for="Beer.Name" class="control-label"></label>
+                <input asp-for="Beer.Name" class="form-control" />
+                <span asp-validation-for="Beer.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.Country" class="control-label"></label>
+                <input asp-for="Beer.Country" class="form-control" />
+                <span asp-validation-for="Beer.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.Brewery" class="control-label"></label>
+                <input asp-for="Beer.Brewery" class="form-control" />
+                <span asp-validation-for="Beer.Brewery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.CreatedBy" class="control-label"></label>
+                <input asp-for="Beer.CreatedBy" class="form-control" />
+                <span asp-validation-for="Beer.CreatedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.Picture" class="control-label"></label>
+                <input asp-for="Beer.Picture" class="form-control" />
+                <span asp-validation-for="Beer.Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.AddedDate" class="control-label"></label>
+                <input asp-for="Beer.AddedDate" class="form-control" />
+                <span asp-validation-for="Beer.AddedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.RemovedDate" class="control-label"></label>
+                <input asp-for="Beer.RemovedDate" class="form-control" />
+                <span asp-validation-for="Beer.RemovedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beer.RemovedBy" class="control-label"></label>
+                <input asp-for="Beer.RemovedBy" class="form-control" />
+                <span asp-validation-for="Beer.RemovedBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
