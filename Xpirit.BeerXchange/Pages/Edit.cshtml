@@ -55,6 +55,12 @@
                 <span asp-validation-for="Beer.RemovedBy" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <select asp-for="Beer.SwitchedForId" class="form-control"
+                        asp-items="@(new SelectList(Model.SwitchedForBeers,"Id","Name"))">
+                    <option>Please select one</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

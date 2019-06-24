@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
@@ -18,8 +19,11 @@ namespace Xpirit.BeerXchange
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public List<Beer> SwitchedForBeers { get; set; }
+
+        public async Task<IActionResult> OnGet()
         {
+            SwitchedForBeers = await _context.Beer.Where(b => b.RemovedBy != "").ToListAsync();
             return Page();
         }
 
@@ -33,9 +37,23 @@ namespace Xpirit.BeerXchange
                 return Page();
             }
 
-            Beer.AddedDate = DateTime.Now;
+            if (Beer.SwitchedForId != null && Beer.SwitchedForId != -1)
+            {
+                var switchedBeer = _context.Beer.Single<Beer>(b => b.Id == Beer.SwitchedForId);
 
+                switchedBeer.RemovedBy = User.FindFirst("name").Value;
+                switchedBeer.RemovedDate = DateTime.Now;
+            }
+            else
+            {
+                Beer.SwitchedFor = null;
+                Beer.SwitchedForId = null;
+            }
+
+            Beer.AddedDate = DateTime.Now;
+            Beer.CreatedBy = User.FindFirst("name").Value;
             _context.Beer.Add(Beer);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

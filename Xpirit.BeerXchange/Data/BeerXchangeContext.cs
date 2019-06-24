@@ -14,6 +14,12 @@ namespace Xpirit.BeerXchange
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Beer>().HasOne<Beer>(b => b.SwitchedFor);
+        }
+
         public DbSet<Xpirit.BeerXchange.Model.Beer> Beer { get; set; }
     }
 }

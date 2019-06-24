@@ -22,6 +22,8 @@ namespace Xpirit.BeerXchange
         [BindProperty]
         public Beer Beer { get; set; }
 
+        public List<Beer> SwitchedForBeers { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -30,6 +32,7 @@ namespace Xpirit.BeerXchange
             }
 
             Beer = await _context.Beer.FirstOrDefaultAsync(m => m.Id == id);
+            SwitchedForBeers = await _context.Beer.Where(b => b.RemovedBy != "").ToListAsync();
 
             if (Beer == null)
             {
@@ -45,6 +48,8 @@ namespace Xpirit.BeerXchange
                 return Page();
             }
 
+            Beer.CreatedBy = User.FindFirst("name").Value;
+            Beer.AddedDate = DateTime.Now;
             _context.Attach(Beer).State = EntityState.Modified;
 
             try

@@ -21,5 +21,9 @@ namespace Xpirit.BeerXchange.Model
         public DateTime? RemovedDate { get; set; }
         public string RemovedBy { get; set; }
 
+        public int? SwitchedForId { get; set; }
+        public virtual Beer SwitchedFor { get; set; }
+
+
     }
 }
