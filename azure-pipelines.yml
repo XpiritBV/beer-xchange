@@ -16,13 +16,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - script: dotnet build --configuration $(buildConfiguration)
+    - script: dotnet build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
       displayName: 'dotnet publish $(buildConfiguration)'
-    - task: CopyFiles@2
-      inputs:
-        Contents: '**\publish\*'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-      displayName: 'copy files to staging directory'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
