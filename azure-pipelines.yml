@@ -30,7 +30,7 @@ stages:
         publishLocation: 'Container'
       displayName: 'publish build artifacts'
 
-- stage: 'Deploy-Dev'
+- stage: 'DeployDev'
   jobs:
   - job: 'Deploy'
     pool:
