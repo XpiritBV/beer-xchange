@@ -23,7 +23,16 @@ namespace Xpirit.BeerXchange
 
         public async Task<IActionResult> OnGet()
         {
-            SwitchedForBeers = await _context.Beer.Where(b => b.RemovedBy != "").ToListAsync();
+            var allBeers = await _context.Beer.ToListAsync();
+            var user = User.FindFirst("name").Value;
+            var credits = allBeers.Count(b => b.CreatedBy == user) - allBeers.Count(b => b.RemovedBy == user);
+
+            if (credits <= 0)
+            {
+                return RedirectToPage("./Index");
+            }
+
+            SwitchedForBeers = allBeers.Where(b => b.RemovedBy != "").ToList();
             return Page();
         }
 
