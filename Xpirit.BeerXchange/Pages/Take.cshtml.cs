@@ -19,7 +19,10 @@ namespace Xpirit.BeerXchange
             _context = context;
         }
 
-        public List<Beer> SwitchedForBeers { get; set; }
+        public List<Beer> AvailableBeers { get; set; }
+
+        [BindProperty]
+        public int SelectedBeer { get; set; }
 
         public async Task<IActionResult> OnGet()
         {
@@ -32,12 +35,9 @@ namespace Xpirit.BeerXchange
                 return RedirectToPage("./Index");
             }
 
-            SwitchedForBeers = allBeers.Where(b => b.RemovedBy != "").ToList();
+            AvailableBeers = allBeers.Where(b => b.RemovedBy == null).ToList();
             return Page();
         }
-
-        [BindProperty]
-        public Beer Beer { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -46,22 +46,17 @@ namespace Xpirit.BeerXchange
                 return Page();
             }
 
-            if (Beer.SwitchedForId != null && Beer.SwitchedForId != -1)
+            var beer = _context.Beer.Single<Beer>(b => b.Id == SelectedBeer);
+            if (beer == null)
             {
-                var switchedBeer = _context.Beer.Single<Beer>(b => b.Id == Beer.SwitchedForId);
-
-                switchedBeer.RemovedBy = User.FindFirst("name").Value;
-                switchedBeer.RemovedDate = DateTime.Now;
-            }
-            else
-            {
-                Beer.SwitchedFor = null;
-                Beer.SwitchedForId = null;
+                return Page();
             }
 
-            Beer.AddedDate = DateTime.Now;
-            Beer.CreatedBy = User.FindFirst("name").Value;
-            _context.Beer.Add(Beer);
+            var user = User.FindFirst("name").Value; ;
+            beer.RemovedDate = DateTime.Now;
+            beer.RemovedBy = user;
+            beer.SwitchedFor = await _context.Beer.FirstAsync(b => b.CreatedBy == user && b.RemovedDate == null);
+
 
             await _context.SaveChangesAsync();
 
