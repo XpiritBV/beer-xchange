@@ -4,14 +4,22 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>915c8607-68c4-4737-a658-efe700c3bdb8</UserSecretsId>
+    <ApplicationInsightsResourceId>/subscriptions/e6cc60cd-de9d-47fb-accb-0ebddddbf289/resourcegroups/Xpirit-BeerXchange-dev/providers/microsoft.insights/components/xpirit-beer-xchange-dev</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/e6cc60cd-de9d-47fb-accb-0ebddddbf289/resourcegroups/Xpirit-BeerXchange-dev/providers/microsoft.insights/components/xpirit-beer-xchange-dev</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
   
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+  
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
