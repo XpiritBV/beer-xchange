@@ -37,7 +37,7 @@ stages:
         azureSubscription: 'beer-xchange-dev'
         appType: 'webApp'
         WebAppName: 'xpirit-beer-xchange-dev'
-        packageForLinux: '$(System.ArtifactsDirectory)/beer-xchange-web/*.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/beer-xchange-web.zip'
       displayName: 'Deploy dev web app'
 
 
