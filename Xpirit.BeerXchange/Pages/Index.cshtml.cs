@@ -22,11 +22,17 @@ namespace Xpirit.BeerXchange
         public IList<Beer> CurrentBeers { get;set; }
         public IList<Beer> HistoricalBeers { get; set; }
 
+        public int Credits { get; set; }
+
         public async Task OnGetAsync()
         {
             await _context.Database.EnsureCreatedAsync();
-            CurrentBeers = await _context.Beer.Where(b => b.RemovedBy == null).ToListAsync();
-            HistoricalBeers = await _context.Beer.Where(b => b.RemovedDate != null || b.RemovedBy != null).OrderByDescending(b => b.RemovedDate).ToListAsync();
+            var allBeers = await _context.Beer.ToListAsync();
+            CurrentBeers = allBeers.Where(b => b.RemovedBy == null).ToList();
+            HistoricalBeers = allBeers.Where(b => b.RemovedDate != null || b.RemovedBy != null).OrderByDescending(b => b.RemovedDate).ToList();
+
+            var user = User.FindFirst("name").Value;
+            Credits = allBeers.Count(b => b.CreatedBy == user) - allBeers.Count(b => b.RemovedBy == user);
         }
     }
 }

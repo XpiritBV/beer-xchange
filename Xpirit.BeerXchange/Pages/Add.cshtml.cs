@@ -10,11 +10,11 @@ using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
 {
-    public class CreateModel : PageModel
+    public class AddModel : PageModel
     {
         private readonly Xpirit.BeerXchange.BeerXchangeContext _context;
 
-        public CreateModel(Xpirit.BeerXchange.BeerXchangeContext context)
+        public AddModel(Xpirit.BeerXchange.BeerXchangeContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Xpirit.BeerXchange
 
         public async Task<IActionResult> OnGet()
         {
-            SwitchedForBeers = await _context.Beer.Where(b => b.RemovedBy != "").ToListAsync();
+            SwitchedForBeers = await _context.Beer.Where(b => b.RemovedBy == null).ToListAsync();
             return Page();
         }
 
