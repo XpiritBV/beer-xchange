@@ -6,12 +6,38 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+stages:
+- stage: 'Build'
+  jobs:
+  - job: 'Build'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: dotnet build --configuration $(buildConfiguration)
+      displayName: 'dotnet publish $(buildConfiguration)'
+    - task: CopyFiles@2
+      inputs:
+        Contents: '**\publish\*'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      displayName: 'copy files to staging directory'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'beer-xchange-web'
+        publishLocation: 'Container'
+      displayName: 'publish build artifacts'
+
+- stage: 'Deploy Dev'
+  jobs:
+  - job: 'Deploy'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    
+
+
+
+
