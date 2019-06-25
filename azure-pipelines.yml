@@ -31,13 +31,20 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'beer-xchange-web'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - script: cd $(System.ArtifactsDirectory) && ls
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'beer-xchange-dev'
         appType: 'webApp'
         WebAppName: 'xpirit-beer-xchange-dev'
-        packageForLinux: '$(System.ArtifactsDirectory)/beer-xchange-web.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/beer-xchange-web/*.zip'
       displayName: 'Deploy dev web app'
 
 
