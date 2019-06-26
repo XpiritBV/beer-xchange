@@ -39,7 +39,7 @@
                     {
                     <li><input asp-for="Beer.SwitchedForId" type="radio" value="@item.Id" /> @item.Name</li>
                     }
-                <li><input asp-for="Beer.SwitchedForId" type="radio" value="-1" checked/>This beer is a gift</li>
+                <li><input asp-for="Beer.SwitchedForId" type="radio" value="-1" checked/>I'm not taking any beer right now</li>
 
                     <span asp-validation-for="Beer.SwitchedForId" class="text-danger"></span>
                 </ul>
