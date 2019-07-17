@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
 {
-    public class IndexModel : PageModel
+	public class IndexModel : PageModel
     {
-        private readonly Xpirit.BeerXchange.BeerXchangeContext _context;
+        private readonly BeerXchangeContext _context;
 
-        public IndexModel(Xpirit.BeerXchange.BeerXchangeContext context)
+        public IndexModel(BeerXchangeContext context)
         {
-            
             _context = context;
         }
 

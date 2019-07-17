@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +6,11 @@ using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
 {
-    public class DeleteModel : PageModel
+	public class DeleteModel : PageModel
     {
-        private readonly Xpirit.BeerXchange.BeerXchangeContext _context;
+        private readonly BeerXchangeContext _context;
 
-        public DeleteModel(Xpirit.BeerXchange.BeerXchangeContext context)
+        public DeleteModel(BeerXchangeContext context)
         {
             _context = context;
         }

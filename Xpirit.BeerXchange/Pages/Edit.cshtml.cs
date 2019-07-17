@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
 {
-    public class EditModel : PageModel
+	public class EditModel : PageModel
     {
-        private readonly Xpirit.BeerXchange.BeerXchangeContext _context;
+        private readonly BeerXchangeContext _context;
 
-        public EditModel(Xpirit.BeerXchange.BeerXchangeContext context)
+        public EditModel(BeerXchangeContext context)
         {
             _context = context;
         }

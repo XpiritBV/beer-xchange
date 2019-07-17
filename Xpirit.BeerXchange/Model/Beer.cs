@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Xpirit.BeerXchange.Model
 {
-    public class Beer
+	public class Beer
     {
         public int Id { get; set; }
 
@@ -23,7 +20,5 @@ namespace Xpirit.BeerXchange.Model
 
         public int? SwitchedForId { get; set; }
         public virtual Beer SwitchedFor { get; set; }
-
-
     }
 }
