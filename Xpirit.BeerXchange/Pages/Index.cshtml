@@ -10,13 +10,15 @@
 <p>
     <a asp-page="Add">Add beer to fridge or switch it for another</a>
 </p>
-<p>
-    @{ if (Model.Credits > 0)
-       {
-           <a asp-page="Take">Take a beer if you have previously put one in</a>
-       }
+@{ if (Model.Credits > 0) {
+    <p>
+       <a asp-page="Take">Take a beer if you have previously put one in</a>
+    </p>
+    <p>
+        <a asp-page="Transfer">Transfer credit to someone else</a>
+    </p>
     }
-</p>
+}
 <p>
     Beer Credits: @Model.Credits
 </p>
@@ -41,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CurrentBeers) {
+    @foreach (var item in Model.CurrentBeers) {
         <tr>
             <td id="@item.Id">
                 @Html.DisplayFor(modelItem => item.Name)

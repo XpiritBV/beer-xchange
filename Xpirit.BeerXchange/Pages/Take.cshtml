@@ -17,7 +17,7 @@
                 <ul>
                     @foreach (var item in Model.AvailableBeers)
                     {
-                    <li><input asp-for="SelectedBeer" type="radio" value="@item.Id" /> @item.Name</li>
+                        <li><input asp-for="SelectedBeer" type="radio" value="@item.Id" /> @item.Name</li>
                     }
                 </ul>
             </div>

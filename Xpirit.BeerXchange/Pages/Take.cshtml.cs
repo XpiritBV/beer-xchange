@@ -4,17 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange
 {
-    public class TakeModel : PageModel
+	public class TakeModel : PageModel
     {
-        private readonly Xpirit.BeerXchange.BeerXchangeContext _context;
+        private readonly BeerXchangeContext _context;
 
-        public TakeModel(Xpirit.BeerXchange.BeerXchangeContext context)
+        public TakeModel(BeerXchangeContext context)
         {
             _context = context;
         }
@@ -26,7 +25,7 @@ namespace Xpirit.BeerXchange
 
         public async Task<IActionResult> OnGet()
         {
-            var allBeers = await _context.Beer.ToListAsync();
+            var allBeers = await _context.Beer.OrderBy(b => b.Name).ToListAsync();
             var user = User.FindFirst("name").Value;
             var credits = allBeers.Count(b => b.CreatedBy == user) - allBeers.Count(b => b.RemovedBy == user);
 
@@ -46,17 +45,16 @@ namespace Xpirit.BeerXchange
                 return Page();
             }
 
-            var beer = _context.Beer.Single<Beer>(b => b.Id == SelectedBeer);
+            var beer = _context.Beer.Single(b => b.Id == SelectedBeer);
             if (beer == null)
             {
                 return Page();
             }
 
-            var user = User.FindFirst("name").Value; ;
+            var user = User.FindFirst("name").Value;
             beer.RemovedDate = DateTime.Now;
             beer.RemovedBy = user;
             beer.SwitchedFor = await _context.Beer.FirstAsync(b => b.CreatedBy == user && b.RemovedDate == null);
-
 
             await _context.SaveChangesAsync();
 
