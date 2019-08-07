@@ -22,6 +22,9 @@ namespace Xpirit.BeerXchange
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+                .AddAzureADBearer(options => Configuration.Bind("AzureActiveDirectory", options));
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -29,8 +32,8 @@ namespace Xpirit.BeerXchange
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                .AddAzureAD(options => Configuration.Bind("AzureAd", options));
+            //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
+            //    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
@@ -39,6 +42,17 @@ namespace Xpirit.BeerXchange
                     options.Conventions.AuthorizePage("/Rules");
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddCors((options =>
+            {
+                options.AddPolicy("AzurePolicy", builder => builder
+                            //.WithOrigins("http://localhost:4200", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                 );
+            }));
 
             services.AddDbContext<BeerXchangeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BeerXchangeContext")));
@@ -58,12 +72,13 @@ namespace Xpirit.BeerXchange
                 app.UseHsts();
             }
 
+            app.UseCors("AzurePolicy");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
             app.UseMvc();
         }
     }
