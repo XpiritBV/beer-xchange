@@ -25,28 +25,11 @@ namespace Xpirit.BeerXchange
             services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
                 .AddAzureADBearer(options => Configuration.Bind("AzureActiveDirectory", options));
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            //services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-            //    .AddAzureAD(options => Configuration.Bind("AzureAd", options));
-
-            services.AddMvc()
-                .AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AuthorizePage("/Index");
-                    options.Conventions.AuthorizePage("/Rules");
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
 
             services.AddCors((options =>
             {
-                options.AddPolicy("AzurePolicy", builder => builder
-                            //.WithOrigins("http://localhost:4200", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+                options.AddPolicy("FrontEnd", builder => builder
                             .AllowAnyOrigin()
                             .AllowAnyMethod()
                             .AllowAnyHeader()
@@ -72,7 +55,7 @@ namespace Xpirit.BeerXchange
                 app.UseHsts();
             }
 
-            app.UseCors("AzurePolicy");
+            app.UseCors("FrontEnd");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
