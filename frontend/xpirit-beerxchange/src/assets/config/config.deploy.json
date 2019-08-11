@@ -1,0 +1,4 @@
+{
+    "apiUrl": "#{apiUrl}",
+    "appInsightsKey": "#{appInsightsKey}"
+}

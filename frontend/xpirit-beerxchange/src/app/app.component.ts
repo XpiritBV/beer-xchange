@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BeerService } from './beer.service';
 import { MsalService } from '@azure/msal-angular';
+import { AppConfig } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { MsalService } from '@azure/msal-angular';
 })
 export class AppComponent {
   title = 'xpirit-beerxchange';
+  test: string = 'Test';
 
   constructor(private beerService : BeerService, private msal: MsalService) { }
 
@@ -18,5 +20,9 @@ export class AppComponent {
     var a = this.beerService.getBeers();
 
     this.user = this.msal.getUser()
+
+    AppConfig.settings.subscribe((settings) => {
+      this.test = settings.apiUrl;
+    });
   }
 }
