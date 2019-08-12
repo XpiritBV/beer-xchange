@@ -12,8 +12,8 @@ namespace Xpirit.BeerXchange.Services
         IEnumerable<Beer> GetCurrentBeers();
         IEnumerable<Beer> GetBeerHistory();
 
-        bool AddBeer(Beer beer);
-        bool UpdateBeer(Beer beer);
+        Task AddBeer(Beer beer);
+        Task UpdateBeer(Beer beer);
 
 
         //Future additions?
