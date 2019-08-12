@@ -1,0 +1,4 @@
+{
+    "apiUrl": "https://localhost/api",
+    "appInsightsKey" : "xxxxx-xxxxx-xxxxx"
+}
