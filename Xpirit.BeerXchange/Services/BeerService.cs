@@ -58,5 +58,10 @@ namespace Xpirit.BeerXchange.Services
             context.Update(beer);
             await context.SaveChangesAsync();
         }
+
+        public async Task<int> GetUserCredits(string user)
+        {
+            return await context.Beer.CountAsync(b => b.CreatedBy == user) - await context.Beer.CountAsync(b => b.RemovedBy == user);
+        }
     }
 }
