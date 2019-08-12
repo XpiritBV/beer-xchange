@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Xpirit.BeerXchange.Services
 {
-    interface IUntappdService
+    public interface IUntappdService
     {
     }
 }

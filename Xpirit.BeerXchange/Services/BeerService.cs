@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,11 +7,11 @@ using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange.Services
 {
-    public class FridgeService : IFridgeService
+    public class BeerService : IBeerService
     {
         private readonly BeerXchangeContext context;
 
-        public FridgeService(BeerXchangeContext context)
+        public BeerService(BeerXchangeContext context)
         {
             this.context = context;
         }
@@ -21,19 +22,24 @@ namespace Xpirit.BeerXchange.Services
             await context.SaveChangesAsync();
         }
 
-        public IEnumerable<Beer> GetAllBeers()
+        public async Task<IEnumerable<Beer>> GetAllBeers()
         {
-            return context.Beer.ToList();
+            return await context.Beer.ToListAsync();
         }
 
-        public IEnumerable<Beer> GetBeerHistory()
+        public async Task<Beer> GetBeerById(int id)
         {
-            return context.Beer.Where(b => b.RemovedDate != null || b.RemovedBy != null).OrderByDescending(b => b.RemovedDate).ToList();
+            return await context.Beer.SingleAsync(b => b.Id == id);
         }
 
-        public IEnumerable<Beer> GetCurrentBeers()
+        public async Task<IEnumerable<Beer>> GetBeerHistory()
         {
-            return context.Beer.Where(b => b.RemovedBy == null).ToList();
+            return await context.Beer.Where(b => b.RemovedDate != null || b.RemovedBy != null).OrderByDescending(b => b.RemovedDate).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Beer>> GetCurrentBeers()
+        {
+            return await context.Beer.Where(b => b.RemovedBy == null).ToListAsync();
         }
 
         public async Task UpdateBeer(Beer beer)

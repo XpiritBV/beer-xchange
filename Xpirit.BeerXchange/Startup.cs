@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication;
+using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange
 {
@@ -39,6 +40,8 @@ namespace Xpirit.BeerXchange
 
             services.AddDbContext<BeerXchangeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BeerXchangeContext")));
+
+            services.AddScoped<IBeerService,BeerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

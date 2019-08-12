@@ -6,11 +6,12 @@ using Xpirit.BeerXchange.Model;
 
 namespace Xpirit.BeerXchange.Services
 {
-    interface IFridgeService
+    public interface IBeerService
     {
-        IEnumerable<Beer> GetAllBeers();
-        IEnumerable<Beer> GetCurrentBeers();
-        IEnumerable<Beer> GetBeerHistory();
+        Task<IEnumerable<Beer>> GetAllBeers();
+        Task<IEnumerable<Beer>> GetCurrentBeers();
+        Task<IEnumerable<Beer>> GetBeerHistory();
+        Task<Beer> GetBeerById(int id);
 
         Task AddBeer(Beer beer);
         Task UpdateBeer(Beer beer);
