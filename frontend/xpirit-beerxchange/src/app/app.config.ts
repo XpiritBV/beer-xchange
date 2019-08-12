@@ -18,7 +18,6 @@ export class AppConfig implements OnDestroy {
             const jsonFile = `assets/config/config.${environment.name}.json`;
 
             this.subscribtion.add(this.http.get(jsonFile).subscribe((response: IAppConfig) => {
-                debugger;
                 AppConfig.settings.next(<IAppConfig>response);
                 this.settingsSet = true;
             }));
