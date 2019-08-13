@@ -13,17 +13,20 @@ import { config } from 'rxjs';
 export const protectedResourceMap:[string, string[]][]=[['https://localhost:44388/api/values', ['api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess']] ];
 
 export function initializeApp(appConfig: AppConfig) {
-  return () => appConfig.load();
+  const promise = appConfig.load().then(() => {
+    msalConfig = {
+      authority: 'https://login.microsoftonline.com/3d4d17ea-1ae4-4705-947e-51369c5a5f79',
+      clientID: '935fb522-2d55-4ee5-a6a8-6a57d9c33b73',
+      protectedResourceMap: protectedResourceMap,
+      consentScopes: [ "user.read", "api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess" ]
+    };
+  });
+  return () => promise;
 }
 
+let msalConfig: MsalConfig; 
 
-export function getConfig() {
-  var msalConfig = new MsalConfig();
-  msalConfig.authority = 'https://login.microsoftonline.com/3d4d17ea-1ae4-4705-947e-51369c5a5f79';
-  msalConfig.clientID = '935fb522-2d55-4ee5-a6a8-6a57d9c33b73';
-  msalConfig.protectedResourceMap = protectedResourceMap;
-  msalConfig.consentScopes = [ "user.read", "api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess" ];
-  
+export function msalConfigFactory() {
   return msalConfig;
 }
 
@@ -48,7 +51,7 @@ export function getConfig() {
     MsalService,
     {
       provide: MSAL_CONFIG,
-      useValue: getConfig()
+      useFactory: msalConfigFactory
     },
     {
       provide: HTTP_INTERCEPTORS,
