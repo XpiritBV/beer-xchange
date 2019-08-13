@@ -8,19 +8,21 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BeerService } from './beer.service';
 import { AppConfig } from './app.config';
 import { MSAL_CONFIG, MsalService } from "@azure/msal-angular/dist/msal.service";
-import { config } from 'rxjs';
+import { IAppConfig } from './model/app-config';
+import { tap } from 'rxjs/operators';
 
-export const protectedResourceMap:[string, string[]][]=[['https://localhost:44388/api/values', ['api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess']] ];
 
 export function initializeApp(appConfig: AppConfig) {
-  const promise = appConfig.load().then(() => {
+  const promise = appConfig.loadAppConfig().pipe(tap((settings: IAppConfig) => {
+    const protectedResourceMap:[string, string[]][]=[[settings.apiUrl, [settings.scopeUrl]] ];
+
     msalConfig = {
-      authority: 'https://login.microsoftonline.com/3d4d17ea-1ae4-4705-947e-51369c5a5f79',
-      clientID: '935fb522-2d55-4ee5-a6a8-6a57d9c33b73',
+      authority: settings.authority,
+      clientID: settings.clientId,
       protectedResourceMap: protectedResourceMap,
-      consentScopes: [ "user.read", "api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess" ]
+      consentScopes: [ settings.scope, settings.scopeUrl ]
     };
-  });
+  })).toPromise();
   return () => promise;
 }
 
@@ -42,11 +44,11 @@ export function msalConfigFactory() {
   ],
   providers: [ 
     BeerService,
-    AppConfig,
-    { 
+    {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [AppConfig], multi: true 
+      deps: [AppConfig],
+      multi: true
     },
     MsalService,
     {

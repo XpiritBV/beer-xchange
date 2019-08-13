@@ -1,30 +1,27 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { environment } from '../environments/environment';
+import { Injectable } from '@angular/core'; 
+import { Observable, BehaviorSubject } from 'rxjs'; 
+import { tap } from 'rxjs/operators'; 
+import { HttpBackend, HttpClient } from '@angular/common/http'; 
+import { environment } from 'src/environments/environment';
 import { IAppConfig } from './model/app-config';
-import { Subscription, Subject } from 'rxjs';
 
-@Injectable()
-export class AppConfig implements OnDestroy {
-    subscribtion: Subscription = new Subscription();
-    static settings: Subject<IAppConfig> = new Subject();
-    private settingsSet: boolean = false;
 
-    constructor(private http: HttpClient) {}
-
-    load() {
-        if (!this.settingsSet) {
-            const jsonFile = `assets/config/config.${environment.name}.json`;
-
-            this.subscribtion.add(this.http.get(jsonFile).subscribe((response: IAppConfig) => {
-                AppConfig.settings.next(<IAppConfig>response);
-                this.settingsSet = true;
-            }));
-        }
-    }
+@Injectable({ providedIn: 'root'})
+export class AppConfig { 
+    private appConfigSubject = new BehaviorSubject<any>(null); 
+    static appConfig: IAppConfig;
+    private httpClient: HttpClient;
     
-    ngOnDestroy(): void {
-        this.subscribtion.unsubscribe();
+    constructor(httpBackend: HttpBackend) { 
+        this.httpClient = new HttpClient(httpBackend); 
+    } 
+        
+    loadAppConfig(): Observable<any> { 
+        const configUrl = `assets/config/config.${environment.name}.json`;
+
+        return this.httpClient.get(configUrl).pipe(tap(response => {
+            AppConfig.appConfig = response;
+            this.appConfigSubject.next(response);
+        })); 
     }
 }
