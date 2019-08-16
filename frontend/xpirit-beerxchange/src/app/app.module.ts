@@ -10,6 +10,8 @@ import { AppConfig } from './app.config';
 import { MSAL_CONFIG, MsalService } from "@azure/msal-angular/dist/msal.service";
 import { IAppConfig } from './model/app-config';
 import { tap } from 'rxjs/operators';
+import { HomeComponent } from './components/home/home.component';
+import { AddBeerComponent } from './components/add-beer/add-beer.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -34,7 +36,9 @@ export function msalConfigFactory() {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    AddBeerComponent
   ],
   imports: [
     MsalModule,
