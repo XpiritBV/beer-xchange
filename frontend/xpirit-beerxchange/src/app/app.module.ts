@@ -15,6 +15,12 @@ import { AddBeerComponent } from './components/add-beer/add-beer.component';
 import { ViewCreditComponent } from './components/view-credit/view-credit.component';
 import { FridgeBeerlistCurrentComponent } from './components/fridge-beerlist-current/fridge-beerlist-current.component';
 import { FridgeBeerlistHistoryComponent } from './components/fridge-beerlist-history/fridge-beerlist-history.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -51,6 +57,12 @@ export function msalConfigFactory() {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [ 
     BeerService,

@@ -1,3 +1,45 @@
-<p>
-  add-beer works!
-</p>
+<div class="card">
+    <div class="card-body">
+      <form [formGroup]="angForm" novalidate>
+        <div class="form-group">
+          <label class="col-md-4">Beer Name</label>
+          <input type="text" class="form-control" formControlName="beer_name"/>
+          <div *ngIf="angForm.controls['beer_name'].invalid && (angForm.controls['beer_name'].dirty || angForm.controls['beer_name'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['beer_name'].errors.required">
+                Beer name is required.
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Brewery</label>
+          <input type="text" class="form-control" formControlName="brewery"/>
+          <div *ngIf="angForm.controls['brewery'].invalid && (angForm.controls['brewery'].dirty || angForm.controls['brewery'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['brewery'].errors.required">
+                Beer name is required.
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4">Country</label>
+          <input type="text" class="form-control" formControlName="country"/>
+          <div *ngIf="angForm.controls['country'].invalid && (angForm.controls['country'].dirty || angForm.controls['country'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['country'].errors.required">
+                Beer name is required.
+              </div>
+          </div>
+        </div>
+        <mat-form-field>
+            <mat-label>Added By</mat-label>
+            <mat-select formControlName="added_by">
+              <mat-option *ngFor="let user of users" [value]="user">
+                {{user}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+        <div class="form-group">
+          <button type="submit" [disabled]="angForm.pristine || angForm.invalid"  class="btn btn-primary">Add Beer</button>
+        </div>
+      </form>
+    </div>
+  </div>

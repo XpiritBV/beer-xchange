@@ -20,4 +20,8 @@ export class FridgeService {
   getAllBeers(): Observable<Array<Beer>>{
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`);
   }
+
+  getFridgeUsers(): Observable<Array<string>>{
+    return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
+  }
 }
