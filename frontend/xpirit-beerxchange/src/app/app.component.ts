@@ -9,18 +9,14 @@ import { AppConfig } from './app.config';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'xpirit-beerxchange';
-  test: string = 'Test';
+  title = 'Xpirit Beer XChange';
 
-  constructor(private beerService : BeerService, private msal: MsalService) { }
+  constructor(private msal: MsalService) { }
 
   user : any;
 
   ngOnInit() {
-    var a = this.beerService.getBeers();
 
     this.user = this.msal.getUser()
-
-    this.test = AppConfig.settings.apiUrl;
   }
 }

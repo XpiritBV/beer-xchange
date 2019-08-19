@@ -1,0 +1,20 @@
+<p *ngIf="!beers"><em>Loading beers...</em></p>
+
+<table class='table table-striped' *ngIf="beers">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Brewery</th>
+      <th>Country</th>
+      <th>Added by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let beer of beers">
+      <td>{{ beer.name }}</td>
+      <td>{{ beer.brewery }}</td>
+      <td>{{ beer.country }}</td>
+      <td>{{ beer.createdBy }}</td>
+    </tr>
+  </tbody>
+</table>

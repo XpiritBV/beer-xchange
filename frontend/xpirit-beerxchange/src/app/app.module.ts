@@ -13,6 +13,8 @@ import { tap } from 'rxjs/operators';
 import { HomeComponent } from './components/home/home.component';
 import { AddBeerComponent } from './components/add-beer/add-beer.component';
 import { ViewCreditComponent } from './components/view-credit/view-credit.component';
+import { FridgeBeerlistCurrentComponent } from './components/fridge-beerlist-current/fridge-beerlist-current.component';
+import { FridgeBeerlistHistoryComponent } from './components/fridge-beerlist-history/fridge-beerlist-history.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -40,7 +42,9 @@ export function msalConfigFactory() {
     AppComponent,
     HomeComponent,
     AddBeerComponent,
-    ViewCreditComponent
+    ViewCreditComponent,
+    FridgeBeerlistCurrentComponent,
+    FridgeBeerlistHistoryComponent
   ],
   imports: [
     MsalModule,

@@ -1,11 +1,9 @@
-
 <body>
   <div *ngIf="!user" id="notloggedin">NOT LOGGED IN</div>
   <div class="container">
-  <div>
+    <div>
       <p>{{ user | json }}</p>
-      <p>{{test}}</p>
-    </div>>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </body>
