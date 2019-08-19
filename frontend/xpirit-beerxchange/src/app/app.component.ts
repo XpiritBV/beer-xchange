@@ -21,6 +21,6 @@ export class AppComponent {
 
     this.user = this.msal.getUser()
 
-    this.test = AppConfig.appConfig.apiUrl;
+    this.test = AppConfig.settings.apiUrl;
   }
 }

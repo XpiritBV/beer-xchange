@@ -12,6 +12,7 @@ import { IAppConfig } from './model/app-config';
 import { tap } from 'rxjs/operators';
 import { HomeComponent } from './components/home/home.component';
 import { AddBeerComponent } from './components/add-beer/add-beer.component';
+import { ViewCreditComponent } from './components/view-credit/view-credit.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -38,7 +39,8 @@ export function msalConfigFactory() {
   declarations: [
     AppComponent,
     HomeComponent,
-    AddBeerComponent
+    AddBeerComponent,
+    ViewCreditComponent
   ],
   imports: [
     MsalModule,

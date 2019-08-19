@@ -9,7 +9,7 @@ import { IAppConfig } from './model/app-config';
 @Injectable({ providedIn: 'root'})
 export class AppConfig { 
     private appConfigSubject = new BehaviorSubject<any>(null); 
-    static appConfig: IAppConfig;
+    static settings: IAppConfig;
     private httpClient: HttpClient;
     
     constructor(httpBackend: HttpBackend) { 
@@ -20,7 +20,7 @@ export class AppConfig {
         const configUrl = `assets/config/config.${environment.name}.json`;
 
         return this.httpClient.get(configUrl).pipe(tap(response => {
-            AppConfig.appConfig = response;
+            AppConfig.settings = response;
             this.appConfigSubject.next(response);
         })); 
     }

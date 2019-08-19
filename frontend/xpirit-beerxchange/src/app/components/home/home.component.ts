@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewCreditComponent } from '../view-credit/view-credit.component';
 
 @Component({
   selector: 'app-home',
