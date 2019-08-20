@@ -22,7 +22,7 @@ export class FridgeBeerlistCurrentComponent implements OnInit {
   }
 
   setBeerList() {
-    this._subscription.add(this.fridgeService.getAllBeers().subscribe((beers: Array<Beer>) => {
+    this._subscription.add(this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
       this.beers = beers;
     }));
   }
