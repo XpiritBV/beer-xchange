@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup,  FormBuilder,  Validators, NgForm } from '@angular/forms';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 
@@ -17,7 +17,11 @@ export class AddBeerComponent implements OnInit {
   
   users: Array<string> = [];
   switchedForBeers: Array<Beer> = [];
-  selectedBeer : -1;
+  beerName :string;
+  brewery:string;
+  country:string;
+  addedBy : string;
+  selectedBeer: number;
   
   createForm() {
     this.angForm = this.fb.group({
@@ -41,8 +45,22 @@ export class AddBeerComponent implements OnInit {
       }
       beers.unshift(noBeer);
       this.switchedForBeers = beers;  
+      this.selectedBeer = noBeer.id;
     });
   }
-  
-  
+
+  onSubmit(){
+    var beer = {name: this.beerName,
+                   brewery: this.brewery,
+                   country: this.country,
+                   createdBy: this.addedBy,
+                   switchedForId: this.selectedBeer,
+                   id: -1,
+                   picture: '',
+                   addedDate: null,
+                   removedDate: null,
+                   removedBy: null
+                   } as Beer;
+    this.fridgeService.addBeer(beer);
+  }
 }

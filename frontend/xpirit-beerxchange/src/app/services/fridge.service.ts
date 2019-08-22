@@ -29,4 +29,11 @@ export class FridgeService {
   getFridgeUsers(): Observable<Array<string>>{
     return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
   }
+
+  addBeer(beer: Beer){
+    console.log(beer);
+    this.http.post(`${AppConfig.settings.apiUrl}/beer`, beer)
+        .subscribe(res => console.log('Done'));
+  }
+
 }
