@@ -30,7 +30,12 @@ jobs:
       
     - name: If master apply tag
       if: github.ref == 'refs/heads/master'
-      run: git tag v$(cat ./VERSION) HEAD |
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+           git config user.email "beer@xpirit.com"
+           git config user.name "beerxchange"
+           git tag v$(cat ./VERSION) HEAD
            git push origin v$(cat ./VERSION)
       
 #     - name: Create a Release
