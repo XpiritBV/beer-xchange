@@ -37,7 +37,9 @@ jobs:
 #            git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
 
     - name: run hub
-      run: hub --version
+      run: |
+           apt install hub -y
+           hub --version
       
 #     - name: Create a Release
 #       uses: elgohr/Github-Release-Action@master
