@@ -38,7 +38,7 @@ jobs:
 
     - name: run hub
       run: |
-           apt install hub -y
+           sudo apt install hub -y
            hub --version
       
 #     - name: Create a Release
