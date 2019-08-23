@@ -15,10 +15,10 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v1
     
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 2.2.108
+#     - name: Setup .NET Core
+#       uses: actions/setup-dotnet@v1
+#       with:
+#         dotnet-version: 2.2.108
         
 #     - name: Build with dotnet
 #       run: dotnet build --configuration Release
@@ -34,7 +34,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
            git tag v$(cat ./VERSION) HEAD
-           git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
+           git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
       
 #     - name: Create a Release
 #       uses: elgohr/Github-Release-Action@master
