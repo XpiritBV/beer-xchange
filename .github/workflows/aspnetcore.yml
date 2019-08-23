@@ -22,3 +22,10 @@ jobs:
         
     - name: Build with dotnet
       run: dotnet build --configuration Release
+      
+    - name: Create a Release
+      uses: elgohr/Github-Release-Action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: MyReleaseMessage
