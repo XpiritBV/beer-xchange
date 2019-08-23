@@ -23,18 +23,18 @@ jobs:
 #     - name: Build with dotnet
 #       run: dotnet build --configuration Release
       
-    - name: Bump version
-      uses: geertvdc/bump-version@master
-      with:
-        version_file: ./VERSION
+#     - name: Bump version
+#       uses: geertvdc/bump-version@master
+#       with:
+#         version_file: ./VERSION
       
-    - name: If master apply tag
-      if: github.ref == 'refs/heads/master'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-           git tag v$(cat ./VERSION) HEAD
-           git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
+#     - name: If master apply tag
+#       if: github.ref == 'refs/heads/master'
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       run: |
+#            git tag v$(cat ./VERSION) HEAD
+#            git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
 
     - name: run hub
       run: hub --version
