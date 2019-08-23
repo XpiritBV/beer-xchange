@@ -24,7 +24,7 @@ jobs:
       run: dotnet build --configuration Release
       
     - name: Bump version
-      uses: remorses/bump-version@master
+      uses: geertvdc/bump-version@master
       with:
         version_file: ./VERSION
       
