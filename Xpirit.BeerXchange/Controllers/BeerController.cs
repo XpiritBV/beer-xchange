@@ -40,7 +40,7 @@ namespace Xpirit.BeerXchange.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Beer beer)
         {
-            await beerService.UpdateBeer(beer);
+            await beerService.AddBeer(beer);
             return Ok(beer);
 
         }

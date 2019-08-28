@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators, NgForm } from '@angular/forms';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-beer',
@@ -11,7 +12,7 @@ import { Beer } from 'src/app/model/beer';
 export class AddBeerComponent implements OnInit {
   
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private fridgeService: FridgeService) {
+  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router) {
     this.createForm();
   }
   
@@ -50,17 +51,22 @@ export class AddBeerComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.selectedBeer == -1)
+    {
+      this.selectedBeer = null;
+    }
     var beer = {name: this.beerName,
                    brewery: this.brewery,
                    country: this.country,
                    createdBy: this.addedBy,
                    switchedForId: this.selectedBeer,
-                   id: -1,
+                   id: 0,
                    picture: '',
                    addedDate: null,
                    removedDate: null,
                    removedBy: null
                    } as Beer;
     this.fridgeService.addBeer(beer);
+    this.router.navigate(["/"]);
   }
 }

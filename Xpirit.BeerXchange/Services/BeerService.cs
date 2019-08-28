@@ -49,7 +49,7 @@ namespace Xpirit.BeerXchange.Services
                 throw new ArgumentNullException(nameof(beer));
             }
 
-            var existingBeer = context.Beer.Single(b => b.Id == beer.Id);
+            var existingBeer = await context.Beer.SingleOrDefaultAsync(b => b.Id == beer.Id);
             if (existingBeer is null)
             {
                 throw new ArgumentException(nameof(beer),$"Beer with Id {beer.Id} does not exist");

@@ -12,7 +12,7 @@
       </div>
       <div class="form-group">
         <label class="col-md-4">Brewery</label>
-        <input type="text" class="form-control" formControlName="brewery"/>
+        <input type="text" class="form-control" formControlName="brewery" [(ngModel)]="brewery"/>
         <div *ngIf="angForm.controls['brewery'].invalid && (angForm.controls['brewery'].dirty || angForm.controls['brewery'].touched)" class="alert alert-danger">
           <div *ngIf="angForm.controls['brewery'].errors.required">
             Beer name is required.
@@ -21,7 +21,7 @@
       </div>
       <div class="form-group">
         <label class="col-md-4">Country</label>
-        <input type="text" class="form-control" formControlName="country"/>
+        <input type="text" class="form-control" formControlName="country" [(ngModel)]="country"/>
         <div *ngIf="angForm.controls['country'].invalid && (angForm.controls['country'].dirty || angForm.controls['country'].touched)" class="alert alert-danger">
           <div *ngIf="angForm.controls['country'].errors.required">
             Beer name is required.
@@ -30,7 +30,7 @@
       </div>
       <mat-form-field>
         <mat-label>Added By</mat-label>
-        <mat-select formControlName="added_by">
+        <mat-select formControlName="added_by" [(ngModel)]="addedBy">
           <mat-option *ngFor="let user of users" [value]="user">
             {{user}}
           </mat-option>
