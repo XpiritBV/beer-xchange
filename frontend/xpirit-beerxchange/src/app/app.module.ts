@@ -21,6 +21,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TransferCreditComponent } from './components/transfer-credit/transfer-credit.component';
+import { TakeBeerComponent } from './components/take-beer/take-beer.component';
 
 
 export function initializeApp(appConfig: AppConfig) {
@@ -50,7 +52,9 @@ export function msalConfigFactory() {
     AddBeerComponent,
     ViewCreditComponent,
     FridgeBeerlistCurrentComponent,
-    FridgeBeerlistHistoryComponent
+    FridgeBeerlistHistoryComponent,
+    TransferCreditComponent,
+    TakeBeerComponent
   ],
   imports: [
     MsalModule,
