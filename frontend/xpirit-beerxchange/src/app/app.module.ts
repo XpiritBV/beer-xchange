@@ -23,7 +23,12 @@ import {MatSelectModule} from '@angular/material/select';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TransferCreditComponent } from './components/transfer-credit/transfer-credit.component';
 import { TakeBeerComponent } from './components/take-beer/take-beer.component';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
 
 export function initializeApp(appConfig: AppConfig) {
   const promise = appConfig.loadAppConfig().pipe(tap((settings: IAppConfig) => {
@@ -54,7 +59,7 @@ export function msalConfigFactory() {
     FridgeBeerlistCurrentComponent,
     FridgeBeerlistHistoryComponent,
     TransferCreditComponent,
-    TakeBeerComponent
+    TakeBeerComponent,
   ],
   imports: [
     MsalModule,
@@ -66,7 +71,13 @@ export function msalConfigFactory() {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    BrowserAnimationsModule
+    MatMenuModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatListModule
   ],
   providers: [ 
     BeerService,

@@ -1,32 +1,37 @@
-<body>
-  <div *ngIf="!user" id="notloggedin">NOT LOGGED IN</div>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button color="white">
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/add">Add / Switch Beer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/take">Take Beer</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/transfer">Transfer Credits</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div class="container">
-    <div>
-      <p>{{ user.name }}</p>
-    </div>
+    <span> BeerXchange </span>
+    <span class="example-fill-remaining-space"></span>
+    <span *ngIf="!user" id="notloggedin">NOT LOGGED IN</span>
+    <span *ngIf="user">{{ user.name }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="over" #sidenav [fixedInViewport]="true">
+    <button mat-icon-button color="black">
+      <mat-icon (click)="sidenav.toggle()">arrow_back</mat-icon>
+    </button>
+
+    <mat-list>
+      <h3 mat-subheader>Beer</h3>
+      <a mat-list-item href="/">
+        <h3 matLine>Home</h3>
+      </a>
+      <a mat-list-item href="/add">
+        <h3 matLine>Add / Switch Beer</h3>
+      </a>
+      <a mat-list-item href="/take">
+        <h3 matLine>Take Beer</h3>
+      </a>
+      <a mat-list-item href="/transfer">
+        <h3 matLine>Transfer Credits</h3>
+      </a>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
     <router-outlet></router-outlet>
-  </div>
-</body>
+  </mat-sidenav-content>
+</mat-sidenav-container>
