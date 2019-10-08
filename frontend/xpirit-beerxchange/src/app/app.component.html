@@ -6,7 +6,7 @@
     <span> BeerXchange </span>
     <span class="example-fill-remaining-space"></span>
     <span *ngIf="!user" id="notloggedin">NOT LOGGED IN</span>
-    <span *ngIf="user">{{ user.name }}</span>
+    <span *ngIf="user">{{ user.name }} (X credits)</span>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
