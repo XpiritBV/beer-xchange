@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { MatRadioModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { TransferCreditComponent } from './components/transfer-credit/transfer-credit.component';
 import { TakeBeerComponent } from './components/take-beer/take-beer.component';
@@ -65,6 +66,7 @@ export function msalConfigFactory() {
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatRadioModule,
     MatSelectModule,
     BrowserAnimationsModule
   ],

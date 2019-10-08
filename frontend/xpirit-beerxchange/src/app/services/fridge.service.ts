@@ -25,6 +25,10 @@ export class FridgeService {
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy != null));
   }
 
+  // ToBe updated
+  takeBeer(beerId: number): Observable<void>{
+    return this.http.put<void>(`${AppConfig.settings.apiUrl}/beer`, beerId);
+  }
 
   getFridgeUsers(): Observable<Array<string>>{
     return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);

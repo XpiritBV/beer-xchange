@@ -1,3 +1,15 @@
-<p>
-  take-beer works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Select beer</label>
+          <mat-radio-group formControlName="selectedBeer" aria-label="Select Beer">
+            <mat-radio-button class="d-block p-2" *ngFor="let beer of beers" [value]="beer.id">{{beer.name}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="angForm.pristine || angForm.invalid"  class="btn btn-primary">Take Beer</button>
+        </div>
+    </form>
+  </div>
+</div>
