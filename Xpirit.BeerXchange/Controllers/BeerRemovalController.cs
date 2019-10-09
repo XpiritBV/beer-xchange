@@ -31,11 +31,15 @@ namespace Xpirit.BeerXchange.Controllers
                 return BadRequest("Not a valid Beer removal request");
             }
 
+            var user = $"{User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.GivenName).FirstOrDefault().Value} {User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Surname).FirstOrDefault().Value}";
+
+
+            //User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Name).FirstOrDefault();
             var beer = await beerService.GetBeerById(beerRemovalRequest.BeerId);
             beer.RemovedDate = DateTime.Now;
-            beer.RemovedBy = User.Identity.Name;
+            beer.RemovedBy = user;
             var currentBeers = await beerService.GetCurrentBeers();
-            beer.SwitchedFor = currentBeers.First(b => b.CreatedBy == User.Identity.Name);
+            beer.SwitchedFor = currentBeers.First(b => b.CreatedBy == user);
 
             await beerService.UpdateBeer(beer);
 

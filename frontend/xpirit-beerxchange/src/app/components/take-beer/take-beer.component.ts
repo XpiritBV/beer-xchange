@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { BeerRemoval } from 'src/app/model/beerRemoval';
 
 @Component({
   selector: 'app-take-beer',
@@ -25,6 +26,8 @@ export class TakeBeerComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.fridgeService.takeBeer(this.angForm.value.selectedBeer).subscribe()
+    var beerRemoval = {beerId: this.angForm.value.selectedBeer
+      } as BeerRemoval;
+    this.fridgeService.takeBeer(beerRemoval).subscribe()
   }
 }
