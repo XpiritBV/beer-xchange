@@ -11,8 +11,9 @@ using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange.Controllers
 {
-    [Route("api/[controller]")]
     [Authorize]
+    [Route("api/[controller]")]
+    
     public class BeerController : Controller
     {
         private readonly IBeerService beerService;

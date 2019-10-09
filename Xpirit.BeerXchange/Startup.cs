@@ -59,11 +59,7 @@ namespace Xpirit.BeerXchange
             }
 
             app.UseCors("FrontEnd");
-
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
             app.UseAuthentication();
             app.UseMvc();
         }
