@@ -18,10 +18,6 @@ export class AddBeerComponent implements OnInit {
   
   users: Array<string> = [];
   switchedForBeers: Array<Beer> = [];
-  beerName :string;
-  brewery:string;
-  country:string;
-  addedBy : string;
   selectedBeer: number;
   
   createForm() {
@@ -29,8 +25,8 @@ export class AddBeerComponent implements OnInit {
       beer_name: ['', Validators.required ],
       brewery: ['', Validators.required ],
       country: ['', Validators.required ],
-      added_by: ['', Validators.required ],
-      switched_for_beer: ['',Validators.required]
+      added_by: [null, Validators.required ],
+      switched_for_beer: [null,Validators.required]
     });
   }
   
@@ -55,10 +51,11 @@ export class AddBeerComponent implements OnInit {
     {
       this.selectedBeer = null;
     }
-    var beer = {name: this.beerName,
-                   brewery: this.brewery,
-                   country: this.country,
-                   createdBy: this.addedBy,
+    
+    var beer = {name: this.angForm.value.beer_name,
+                   brewery: this.angForm.value.brewery,
+                   country: this.angForm.value.country,
+                   createdBy: this.angForm.value.added_by,
                    switchedForId: this.selectedBeer,
                    id: 0,
                    picture: '',

@@ -44,27 +44,5 @@ namespace Xpirit.BeerXchange.Controllers
             return Ok(beer);
 
         }
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]Beer beer)
-        {
-            var existingBeer = await beerService.GetBeerById(id);
-            if (existingBeer is null)
-            {
-                return NotFound(beer);
-            }
-
-            await beerService.UpdateBeer(beer);
-            return Ok(beer);
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            //return 501 (not implemented yet)
-            return new StatusCodeResult(501);
-        }
     }
 }
