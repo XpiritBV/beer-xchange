@@ -3,6 +3,7 @@ import { AppConfig } from '../app.config';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Beer } from '../model/beer';
+import { BeerAddition } from '../model/beerAddition';
 
 
 @Injectable({
@@ -34,9 +35,9 @@ export class FridgeService {
     return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
   }
 
-  addBeer(beer: Beer){
+  addBeer(beer: BeerAddition){
     console.log(beer);
-    this.http.post(`${AppConfig.settings.apiUrl}/beer`, beer)
+    this.http.post(`${AppConfig.settings.apiUrl}/beeraddition`, beer)
         .subscribe(res => console.log('Done'));
   }
 

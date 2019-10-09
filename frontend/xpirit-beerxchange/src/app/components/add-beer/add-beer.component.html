@@ -23,7 +23,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Switched For Beer</mat-label>
-        <mat-select formControlName="switched_for_beer" placeholder="I dont want to take beer">
+        <mat-select formControlName="switched_for_beer">
           <mat-option *ngFor="let beer of switchedForBeers" [(value)]="beer.id">
             {{beer.name}}
           </mat-option>

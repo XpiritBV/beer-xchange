@@ -3,6 +3,7 @@ import { FormGroup,  FormBuilder,  Validators, NgForm } from '@angular/forms';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Router } from '@angular/router';
+import { BeerAddition } from 'src/app/model/beerAddition';
 
 @Component({
   selector: 'app-add-beer',
@@ -52,17 +53,12 @@ export class AddBeerComponent implements OnInit {
       this.selectedBeer = null;
     }
     
-    var beer = {name: this.angForm.value.beer_name,
+    var beer = {beerName: this.angForm.value.beer_name,
                    brewery: this.angForm.value.brewery,
                    country: this.angForm.value.country,
-                   createdBy: this.angForm.value.added_by,
-                   switchedForId: this.selectedBeer,
-                   id: 0,
-                   picture: '',
-                   addedDate: null,
-                   removedDate: null,
-                   removedBy: null
-                   } as Beer;
+                   addedBy: this.angForm.value.added_by,
+                   switchedBeer: this.angForm.value.switched_for_beer,
+                   } as BeerAddition;
     this.fridgeService.addBeer(beer);
     this.router.navigate(["/"]);
   }
