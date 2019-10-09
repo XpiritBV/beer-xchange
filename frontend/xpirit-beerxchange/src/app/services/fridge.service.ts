@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Beer } from '../model/beer';
 import { BeerAddition } from '../model/beerAddition';
+import { BeerRemoval } from '../model/beerRemoval';
+import { CreditTransfer } from '../model/creditTransfer';
 
 
 @Injectable({
@@ -26,19 +28,23 @@ export class FridgeService {
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy != null));
   }
 
-  // ToBe updated
-  takeBeer(beerId: number): Observable<void>{
-    return this.http.put<void>(`${AppConfig.settings.apiUrl}/beer`, beerId);
-  }
-
-  getFridgeUsers(): Observable<Array<string>>{
-    return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
-  }
-
   addBeer(beer: BeerAddition){
     console.log(beer);
     this.http.post(`${AppConfig.settings.apiUrl}/beeraddition`, beer)
         .subscribe(res => console.log('Done'));
+  }
+
+
+  takeBeer(beerRemoval: BeerRemoval): Observable<void>{
+    return this.http.post<void>(`${AppConfig.settings.apiUrl}/beerremoval`, beerRemoval);
+  }
+
+  transferCredit(creditTransfer: CreditTransfer): Observable<void>{
+    return this.http.post<void>(`${AppConfig.settings.apiUrl}/credittransfer`, creditTransfer);
+  }
+
+  getFridgeUsers(): Observable<Array<string>>{
+    return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
   }
 
 }
