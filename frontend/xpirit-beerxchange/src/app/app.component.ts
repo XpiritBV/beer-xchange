@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BeerService } from './beer.service';
 import { MsalService } from '@azure/msal-angular';
 import { AppConfig } from './app.config';
 

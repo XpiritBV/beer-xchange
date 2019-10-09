@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MsalModule, MsalInterceptor, MsalConfig } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BeerService } from './beer.service';
 import { AppConfig } from './app.config';
 import { MSAL_CONFIG, MsalService } from "@azure/msal-angular/dist/msal.service";
 import { IAppConfig } from './model/app-config';
@@ -30,6 +29,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import { FridgeService } from './services/fridge.service';
 
 export function initializeApp(appConfig: AppConfig) {
   const promise = appConfig.loadAppConfig().pipe(tap((settings: IAppConfig) => {
@@ -82,7 +82,7 @@ export function msalConfigFactory() {
     MatListModule
   ],
   providers: [ 
-    BeerService,
+    FridgeService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
