@@ -1,3 +1,23 @@
-<p>
-  transfer-credit works!
-</p>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Credit for which beer do you want to transfer?</label>
+          <mat-radio-group formControlName="beer_id" aria-label="Select Beer">
+            <mat-radio-button class="d-block p-2" *ngFor="let beer of beers" [value]="beer.id">{{beer.name}}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <mat-form-field>
+          <mat-label>Transfer credit to who?</mat-label>
+          <mat-select formControlName="credit_receiver">
+            <mat-option *ngFor="let user of users" [value]="user">
+              {{user}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="form-group">
+          <button type="submit" [disabled]="angForm.pristine || angForm.invalid"  class="btn btn-primary">Share the love!</button>
+        </div>
+    </form>
+  </div>
+</div>

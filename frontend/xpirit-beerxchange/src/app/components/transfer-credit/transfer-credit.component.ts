@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FridgeService } from 'src/app/services/fridge.service';
+import { Beer } from 'src/app/model/beer';
+import { Router } from '@angular/router';
+import { CreditTransfer } from '../../model/creditTransfer';
 
 @Component({
   selector: 'app-transfer-credit',
@@ -7,9 +12,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransferCreditComponent implements OnInit {
 
-  constructor() { }
-
+  angForm: FormGroup;
+  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router) {
+    this.createForm();
+  }
+  
+  users: Array<string> = [];
+  beers: Array<Beer> = [];
+  selectedBeer: number;
+  
+  createForm() {
+    this.angForm = this.fb.group({
+      credit_receiver: [null, Validators.required ],
+      beer_id: [null,Validators.required]
+    });
+  }
+  
   ngOnInit() {
+    this.fridgeService.getFridgeUsers().subscribe((users: Array<string>) => {
+      this.users = users;
+    });
+    
+    this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
+      this.beers = beers;  
+    });
+  }
+
+  onSubmit(){
+    if(this.selectedBeer == -1)
+    {
+      this.selectedBeer = null;
+    }
+    
+    var creditTransfer = {
+      creditReceiver: this.angForm.value.credit_receiver,
+      beerId: this.angForm.value.beer_id,} as CreditTransfer;
+    console.log(creditTransfer);
+
+    this.fridgeService.transferCredit(creditTransfer).subscribe();
+    
+    this.router.navigate(["/"]);
   }
 
 }
