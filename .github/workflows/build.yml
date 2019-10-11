@@ -35,7 +35,7 @@ jobs:
            zip -r api-$version.zip .
            
            #build frontend
-           cd $HOME/$GITHUB_WORKSPACE/frontend/xpirit-beerxchange
+           cd $GITHUB_WORKSPACE/frontend/xpirit-beerxchange
            npm install
            npm run build-prod
            cd dist/xpirit-beerxchange
@@ -43,5 +43,5 @@ jobs:
            cp frontend-$version.zip $HOME/artifacts/
 
            #create release
-           cd $HOME/$GITHUB_WORKSPACE
+           cd $GITHUB_WORKSPACE
            hub release create -m $version -a $HOME/artifacts/api/api-$version.zip -a $HOME/artifacts/frontend-$version.zip $version
