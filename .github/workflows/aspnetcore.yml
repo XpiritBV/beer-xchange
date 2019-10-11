@@ -19,34 +19,20 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 2.2.108
-        
-    - name: Build with dotnet
-      run: dotnet publish --configuration Release -- output ../artifacts/api
-      
-    - name: Bump version
-      uses: geertvdc/bump-version@master
-      with:
-        version_file: ./VERSION
-      
-    - name: If master apply tag
-      if: github.ref == 'refs/heads/master'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-           git tag v$(cat ./VERSION) HEAD
-           git push "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" v$(cat ./VERSION)
 
     - name: Install hub
       uses: geertvdc/setup-hub@master
       
-    - name: run hub
+    - name: Build & Release
       env:
         GITHUB_USER: ${{ secrets.GITHUB_USER }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-           hub --version
+           dotnet publish --configuration Release --output ../artifacts/api
+           version=$(hub release | awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{$NF=sprintf("%0*d", length($NF), ($NF+1)); print}')
            pwd        
-           zip -r api.zip artifacts/api
+           zip -r api-$version.zip artifacts/api
+           hub release create -a api-$version.zip $version
       
 #     - name: Create a Release
 #       uses: elgohr/Github-Release-Action@master
