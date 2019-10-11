@@ -5,8 +5,8 @@ on:
     branches:
     - master
     - /*
-    paths:
-    - 'Xpirit.BeerXchange/**'
+#    paths:
+#    - 'Xpirit.BeerXchange/**'
 
 jobs:
   build:
