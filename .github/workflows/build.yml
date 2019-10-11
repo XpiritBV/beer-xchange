@@ -1,12 +1,10 @@
-name: Api
+name: Build
 
 on:
   push:
     branches:
     - master
     - /*
-#    paths:
-#    - 'Xpirit.BeerXchange/**'
 
 jobs:
   build:
@@ -30,14 +28,17 @@ jobs:
       run: |
            version=$(hub release -L 1| awk -F. -v OFS=. 'NF==1{print ++$NF}; NF>1{$NF=sprintf("%0*d", length($NF), ($NF+1)); print}')
            echo $version
-           dotnet publish --configuration Release --output ../artifacts/api
-           pwd        
-           zip -r api-$version.zip artifacts/api
-           hub release create -m $version -a api-$version.zip $version
-      
-#     - name: Create a Release
-#       uses: elgohr/Github-Release-Action@master
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#       with:
-#         args: MyReleaseMessage
+           dotnet publish --configuration Release --output $HOME/artifacts/api
+           
+           cd frontend/xpirit-beerxchange
+           npm Install
+           npm run build-prod
+
+           cd dist/xpirit-beerxchange
+           zip -r frontend-$version.zip .
+           cp frontend-$version.zip $home/artifacts
+
+           cd $HOME/artifacts/api
+           zip -r api-$version.zip .
+
+           hub release create -m $version -a $HOME/artifacts/api/api-$version.zip -a $HOME/artifacts/frontend-$version.zip $version
