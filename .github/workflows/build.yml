@@ -31,7 +31,7 @@ jobs:
            dotnet publish --configuration Release --output $HOME/artifacts/api
            
            cd frontend/xpirit-beerxchange
-           npm Install
+           npm install
            npm run build-prod
 
            cd dist/xpirit-beerxchange
