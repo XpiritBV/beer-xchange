@@ -1,6 +1,6 @@
-<p *ngIf="!beers"><em>Loading beers...</em></p>
+<p *ngIf="!beers?.length > 0"><em>Loading beers...</em></p>
 
-<table class='table table-striped' *ngIf="beers">
+<table class='table table-striped' *ngIf="beers?.length > 0">
   <thead>
     <tr>
       <th>Name</th>
