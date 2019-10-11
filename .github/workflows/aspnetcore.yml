@@ -33,7 +33,7 @@ jobs:
            dotnet publish --configuration Release --output ../artifacts/api
            pwd        
            zip -r api-$version.zip artifacts/api
-           hub release create -a api-$version.zip $version
+           hub release create -m $version -a api-$version.zip $version
       
 #     - name: Create a Release
 #       uses: elgohr/Github-Release-Action@master
