@@ -36,7 +36,7 @@ jobs:
 
            cd dist/xpirit-beerxchange
            zip -r frontend-$version.zip .
-           cp frontend-$version.zip $home/artifacts/
+           cp frontend-$version.zip $HOME/artifacts/
 
            cd $HOME/artifacts/api
            zip -r api-$version.zip .
