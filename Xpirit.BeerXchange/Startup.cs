@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication;
+using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange
 {
@@ -22,26 +23,25 @@ namespace Xpirit.BeerXchange
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+                .AddAzureADBearer(options => Configuration.Bind("AzureActiveDirectory", options));
+
+            services.AddMvc();
+
+            services.AddCors((options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-            services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
-                .AddAzureAD(options => Configuration.Bind("AzureAd", options));
-
-            services.AddMvc()
-                .AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AuthorizePage("/Index");
-                    options.Conventions.AuthorizePage("/Rules");
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                options.AddPolicy("FrontEnd", builder => builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                 );
+            }));
 
             services.AddDbContext<BeerXchangeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BeerXchangeContext")));
+
+            services.AddScoped<IBeerService,BeerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,12 +58,9 @@ namespace Xpirit.BeerXchange
                 app.UseHsts();
             }
 
+            app.UseCors("FrontEnd");
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
             app.UseAuthentication();
-
             app.UseMvc();
         }
     }

@@ -1,0 +1,8 @@
+{
+    "apiUrl": "#{apiUrl}",
+    "appInsightsKey": "#{appInsightsKey}",
+    "authority": "#{authority}",
+    "scope": "#{scope}",
+    "scopeUrl": "#{scopeUrl}",
+    "clientId": "#{clientId}"
+}

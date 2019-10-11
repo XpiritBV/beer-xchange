@@ -1,0 +1,8 @@
+{
+    "apiUrl": "https://localhost:44388/api",
+    "appInsightsKey" : "xxxxx-xxxxx-xxxxx",
+    "authority": "https://login.microsoftonline.com/3d4d17ea-1ae4-4705-947e-51369c5a5f79",
+    "scope": "user.read",
+    "scopeUrl": "api://e8c5f737-0341-4da1-bcd0-3cec89e8ea11/BeerAccess",
+    "clientId": "935fb522-2d55-4ee5-a6a8-6a57d9c33b73"
+}

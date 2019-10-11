@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button color="white">
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <span> BeerXchange </span>
+    <span class="example-fill-remaining-space"></span>
+    <span *ngIf="!user" id="notloggedin">NOT LOGGED IN</span>
+    <span *ngIf="user">{{ user.name }} (<app-view-credit></app-view-credit>)</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="over" #sidenav [fixedInViewport]="true">
+    <button mat-icon-button color="black">
+      <mat-icon (click)="sidenav.toggle()">arrow_back</mat-icon>
+    </button>
+
+    <mat-list>
+      <h3 mat-subheader>Beer</h3>
+      <a mat-list-item href="/">
+        <h3 matLine>Home</h3>
+      </a>
+      <a mat-list-item href="/add">
+        <h3 matLine>Add / Switch Beer</h3>
+      </a>
+      <a mat-list-item href="/take">
+        <h3 matLine>Take Beer</h3>
+      </a>
+      <a mat-list-item href="/transfer">
+        <h3 matLine>Transfer Credits</h3>
+      </a>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

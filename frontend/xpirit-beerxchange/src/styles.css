@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+mat-sidenav-content, mat-sidenav-container {
+  height: 100%;
+}
+
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
