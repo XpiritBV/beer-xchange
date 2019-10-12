@@ -1,8 +1,8 @@
-name: CI
+name: release
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 jobs:
   deploy:
