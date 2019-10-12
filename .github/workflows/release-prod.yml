@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1 
+    - uses: azure/actions/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - run: |
+           version=$(hub release -L 1)
+           hub release download $version
+           
+           unzip api*.zip -d api
+           unzip frontend*.zip -d frontend
+           
+           #deploy frontend to storage account
+           az storage blob upload-batch -d '$web' --account-name beerxchangefrontend -s frontend           
+           
+           #deploy api to web app
+           az webapp deployment source config-zip -g xpirit-beerxchange-prd -n xpirit-beerxchange-api --src api*.zip
+           
+           #logout
+           az logout
