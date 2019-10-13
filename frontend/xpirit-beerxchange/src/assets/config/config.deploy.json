@@ -1,8 +1,8 @@
 {
-    "apiUrl": "#{apiUrl}",
-    "appInsightsKey": "#{appInsightsKey}",
-    "authority": "#{authority}",
-    "scope": "#{scope}",
-    "scopeUrl": "#{scopeUrl}",
-    "clientId": "#{clientId}"
+    "apiUrl": "https://api.xpirit.beer",
+    "appInsightsKey": "dc7ee50e-c09f-4272-a9b0-0f6a90c61716",
+    "authority": "https://login.microsoftonline.com/3d4d17ea-1ae4-4705-947e-51369c5a5f79",
+    "scope": "user.read",
+    "scopeUrl": "api://4d24ae4f-5b13-473d-81fc-b09ab58bfd86/BeerApi",
+    "clientId": "978a5ccf-319c-40a3-bbc6-4af8dcaec842"
 }
