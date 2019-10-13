@@ -2,7 +2,7 @@ name: release
 
 on:
   release: 
-    types: [created, published]
+    types: [created, gpublished]
 
 jobs:
   deploy:
@@ -10,11 +10,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1 
+    - uses: geertvdc/setup-hub@master
     - uses: azure/actions/login@v1
       with:
         creds: ${{ secrets.AZURE_PROD_SPN }}
     
-    - run: |
+    - name: Deploy to Azure
+      env:
+        GITHUB_USER: ${{ secrets.GITHUB_USER }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
            version=$(hub release -L 1)
            hub release download $version
            
