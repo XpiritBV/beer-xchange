@@ -56,4 +56,4 @@ jobs:
            az storage blob upload-batch -d '$web' --account-name beerxchangefrontend -s $GITHUB_WORKSPACE/frontend/xpirit-beerxchange/dist/xpirit-beerxchange          
            
            #deploy api to web app
-           az webapp deployment source config-zip -g xpirit-beerxchange-prd -n xpirit-beerxchange-api --src $HOME/artifacts/api/api-$version.zip
+           az webapp deployment source config-zip -g xpirit-beerxchange-prd -n xpirit-beerxchange-api --src $HOME/artifacts/api/api*.zip
