@@ -17,7 +17,7 @@ export class AppConfig {
     } 
         
     loadAppConfig(): Observable<any> { 
-        const configUrl = `assets/config/config.${environment.name}.json`;
+        const configUrl = `assets/config/config.${environment.name}.json?v=2`;
 
         return this.httpClient.get(configUrl).pipe(tap(response => {
             AppConfig.settings = response;
