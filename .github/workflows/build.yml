@@ -45,3 +45,15 @@ jobs:
            #create release
            cd $GITHUB_WORKSPACE
            hub release create -m $version -a $HOME/artifacts/api/api-$version.zip -a $HOME/artifacts/frontend-$version.zip $version
+
+    - uses: azure/actions/login@v1
+      with:
+        creds: ${{ secrets.AZURE_PROD_SPN }}
+
+    - name: Deploy
+      run: |
+           #deploy frontend to storage account
+           az storage blob upload-batch -d '$web' --account-name beerxchangefrontend -s $GITHUB_WORKSPACE/frontend/xpirit-beerxchange/dist/xpirit-beerxchange          
+           
+           #deploy api to web app
+           az webapp deployment source config-zip -g xpirit-beerxchange-prd -n xpirit-beerxchange-api --src $HOME/artifacts/api/api-$version.zip
