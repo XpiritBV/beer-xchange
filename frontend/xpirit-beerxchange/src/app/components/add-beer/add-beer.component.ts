@@ -4,6 +4,7 @@ import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Router } from '@angular/router';
 import { BeerAddition } from 'src/app/model/beerAddition';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-add-beer',
@@ -13,7 +14,7 @@ import { BeerAddition } from 'src/app/model/beerAddition';
 export class AddBeerComponent implements OnInit {
   
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router) {
+  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router, private msal: MsalService) {
     this.createForm();
   }
   
@@ -33,6 +34,11 @@ export class AddBeerComponent implements OnInit {
   
   ngOnInit() {
     this.fridgeService.getFridgeUsers().subscribe((users: Array<string>) => {
+      var currentUser = this.msal.getUser();
+      if(!users.find(u =>u == currentUser.name))
+      {
+        users.unshift(currentUser.name);
+      }
       this.users = users;
     });
     
