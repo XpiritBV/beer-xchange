@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Xpirit.BeerXchange.Model
@@ -19,6 +20,8 @@ namespace Xpirit.BeerXchange.Model
         public string RemovedBy { get; set; }
 
         public int? SwitchedForId { get; set; }
+
+        [JsonIgnore]
         public virtual Beer SwitchedFor { get; set; }
     }
 }
