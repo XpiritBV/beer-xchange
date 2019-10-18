@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
-import { AppConfig } from './app.config';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,18 @@ import { AppConfig } from './app.config';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('sidenav') drawer: MatSidenav;
   title = 'Xpirit Beer XChange';
+  user : any;
 
   constructor(private msal: MsalService) { }
 
-  user : any;
-
   ngOnInit() {
+    this.user = this.msal.getUser();
+  }
 
-    this.user = this.msal.getUser()
+  // Temp solution to close the navBar
+  closeNavBar(): void {
+    this.drawer.close();
   }
 }

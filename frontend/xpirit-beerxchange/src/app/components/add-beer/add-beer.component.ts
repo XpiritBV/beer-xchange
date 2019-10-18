@@ -54,18 +54,23 @@ export class AddBeerComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.selectedBeer == -1)
-    {
+    if(this.selectedBeer == -1) {
       this.selectedBeer = null;
     }
     
-    var beer = {beerName: this.angForm.value.beer_name,
-                   brewery: this.angForm.value.brewery,
-                   country: this.angForm.value.country,
-                   addedBy: this.angForm.value.added_by,
-                   switchedBeer: this.angForm.value.switched_for_beer,
-                   } as BeerAddition;
-    this.fridgeService.addBeer(beer);
-    this.router.navigate(["/"]);
+    var beer = {
+      beerName: this.angForm.value.beer_name,
+      brewery: this.angForm.value.brewery,
+      country: this.angForm.value.country,
+      addedBy: this.angForm.value.added_by,
+      switchedBeer: this.angForm.value.switched_for_beer,
+    } as BeerAddition;
+
+    this.fridgeService.addBeer(beer).subscribe(() => {
+      this.router.navigate(["/"]);
+    },(err) => {
+      // TODO: Nette foutmelding tonen
+      alert('Something went wrong');
+    })
   }
 }

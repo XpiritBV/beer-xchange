@@ -2,16 +2,19 @@
   <div class="card-body">
     <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label class="col-md-4">Beer Name</label>
-        <input type="text" class="form-control" formControlName="beer_name" />
+        <mat-form-field class="w-100">
+            <input matInput placeholder="Beer name" formControlName="beer_name" />
+        </mat-form-field>
       </div>
       <div class="form-group">
-        <label class="col-md-4">Brewery</label>
-        <input type="text" class="form-control" formControlName="brewery"/>
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Brewery" formControlName="brewery"/>
+        </mat-form-field>
       </div>
       <div class="form-group">
-        <label class="col-md-4">Country</label>
-        <input type="text" class="form-control" formControlName="country"/>
+        <mat-form-field class="w-100">
+          <input matInput placeholder="Country" formControlName="country"/>
+        </mat-form-field>
       </div>
       <mat-form-field>
         <mat-label>Added By</mat-label>

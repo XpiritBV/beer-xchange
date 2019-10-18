@@ -1,27 +1,36 @@
-
 <h2>Fridge history <span  *ngIf="beers.length > 0">({{beers.length}})</span></h2>
-<p *ngIf="!(beers.length > 0)"><em>Loading beers...</em></p>
-<table class='table table-striped' *ngIf="beers.length > 0">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Brewery</th>
-      <th>Country</th>
-      <th>Added by</th>
-      <th>Added date</th>
-      <th>removed by</th>
-      <th>removed date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let beer of beers">
-      <td>{{ beer.name }}</td>
-      <td>{{ beer.brewery }}</td>
-      <td>{{ beer.country }}</td>
-      <td>{{ beer.createdBy }}</td>
-      <td>{{ beer.addedDate | date : 'd-M-yyyy' }}</td>
-      <td>{{ beer.removedBy }}</td>
-      <td>{{ beer.removedDate }}</td>
-    </tr>
-  </tbody>
-</table>
+
+<table mat-table [dataSource]="beers" class="mat-elevation-z8 col-12" *ngIf="beers.length > 0">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="brewery">
+      <th mat-header-cell *matHeaderCellDef> Brewery </th>
+      <td mat-cell *matCellDef="let element"> {{element.brewery}} </td>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef> Country </th>
+      <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+    </ng-container>
+    <ng-container matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef> Added by </th>
+      <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+    </ng-container>
+    <ng-container matColumnDef="addedDate">
+      <th mat-header-cell *matHeaderCellDef> Added date </th>
+      <td mat-cell *matCellDef="let element"> {{element.addedDate | date : 'dd-MM-yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="removedBy">
+      <th mat-header-cell *matHeaderCellDef> Removed by </th>
+      <td mat-cell *matCellDef="let element"> {{element.removedBy}} </td>
+    </ng-container>
+    <ng-container matColumnDef="removedDate">
+      <th mat-header-cell *matHeaderCellDef> Removed date </th>
+      <td mat-cell *matCellDef="let element"> {{element.removedDate | date : 'dd-MM-yyyy'}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[25, 50, 100]" showFirstLastButtons></mat-paginator>

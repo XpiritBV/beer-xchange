@@ -28,12 +28,9 @@ export class FridgeService {
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy != null));
   }
 
-  addBeer(beer: BeerAddition){
-    console.log(beer);
-    this.http.post(`${AppConfig.settings.apiUrl}/beeraddition`, beer)
-        .subscribe(res => console.log('Done'));
+  addBeer(beer: BeerAddition): Observable<void>{
+    return this.http.post<void>(`${AppConfig.settings.apiUrl}/beeraddition`, beer);
   }
-
 
   takeBeer(beerRemoval: BeerRemoval): Observable<void>{
     return this.http.post<void>(`${AppConfig.settings.apiUrl}/beerremoval`, beerRemoval);
@@ -46,5 +43,4 @@ export class FridgeService {
   getFridgeUsers(): Observable<Array<string>>{
     return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
   }
-
 }

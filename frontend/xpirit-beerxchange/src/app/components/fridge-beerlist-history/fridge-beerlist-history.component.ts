@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
@@ -8,8 +8,9 @@ import { Beer } from 'src/app/model/beer';
   templateUrl: './fridge-beerlist-history.component.html',
   styleUrls: ['./fridge-beerlist-history.component.css']
 })
-export class FridgeBeerlistHistoryComponent implements OnInit {
-
+export class FridgeBeerlistHistoryComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'createdBy', 'addedDate', 'removedBy', 'removedDate'];
+  
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }
@@ -28,4 +29,7 @@ export class FridgeBeerlistHistoryComponent implements OnInit {
     }));
   }
 
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
 }

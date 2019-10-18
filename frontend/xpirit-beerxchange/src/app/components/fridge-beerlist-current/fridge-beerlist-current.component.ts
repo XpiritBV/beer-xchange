@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Subscription, timer } from 'rxjs';
@@ -8,7 +8,8 @@ import { Subscription, timer } from 'rxjs';
   templateUrl: './fridge-beerlist-current.component.html',
   styleUrls: ['./fridge-beerlist-current.component.css']
 })
-export class FridgeBeerlistCurrentComponent implements OnInit {
+export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'createdBy', 'addedDate'];
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }
@@ -27,4 +28,7 @@ export class FridgeBeerlistCurrentComponent implements OnInit {
     }));
   }
 
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+  }
 }
