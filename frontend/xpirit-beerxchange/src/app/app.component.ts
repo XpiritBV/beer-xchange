@@ -8,7 +8,6 @@ import { MatSidenav } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  @ViewChild('sidenav') drawer: MatSidenav;
   title = 'Xpirit Beer XChange';
   user : any;
 
@@ -16,10 +15,5 @@ export class AppComponent {
 
   ngOnInit() {
     this.user = this.msal.getUser();
-  }
-
-  // Temp solution to close the navBar
-  closeNavBar(): void {
-    this.drawer.close();
   }
 }

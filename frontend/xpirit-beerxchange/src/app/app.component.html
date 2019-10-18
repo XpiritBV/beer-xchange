@@ -17,16 +17,16 @@
 
     <mat-list>
       <h3 mat-subheader>Beer</h3>
-      <a mat-list-item href="/" (click)="closeNavBar()">
+      <a mat-list-item href="/" (click)="sidenav.toggle()">
         <h3 matLine>Home</h3>
       </a>
-      <a mat-list-item href="/#add" (click)="closeNavBar()">
+      <a mat-list-item href="/#add" (click)="sidenav.toggle()">
         <h3 matLine>Add / Switch Beer</h3>
       </a>
-      <a mat-list-item href="/#take" (click)="closeNavBar()">
+      <a mat-list-item href="/#take" (click)="sidenav.toggle()">
         <h3 matLine>Take Beer</h3>
       </a>
-      <a mat-list-item href="/#transfer" (click)="closeNavBar()">
+      <a mat-list-item href="/#transfer" (click)="sidenav.toggle()">
         <h3 matLine>Transfer Credits</h3>
       </a>
     </mat-list>
