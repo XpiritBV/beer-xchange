@@ -10,7 +10,7 @@ using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CreditTransferController : ControllerBase
@@ -30,6 +30,13 @@ namespace Xpirit.BeerXchange.Controllers
             if (beer == null)
             {
                 return BadRequest("invalid beerId");
+            }
+
+            var user = $"{User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.GivenName).FirstOrDefault().Value} {User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Surname).FirstOrDefault().Value}";
+
+            if (beer.CreatedBy != user)
+            {
+                return BadRequest($"Invalid beerId, Beer not owned by user {user}");
             }
 
             beer.CreatedBy = creditTransfer.CreditReceiver;

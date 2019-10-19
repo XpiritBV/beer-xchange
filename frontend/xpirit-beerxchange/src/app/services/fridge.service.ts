@@ -24,6 +24,10 @@ export class FridgeService {
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy == null));
   }
 
+  getUserBeers(user: string): Observable<Array<Beer>>{
+    return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.createdBy === user));
+  }
+
   getHistoricalBeers(): Observable<Array<Beer>>{
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy != null));
   }

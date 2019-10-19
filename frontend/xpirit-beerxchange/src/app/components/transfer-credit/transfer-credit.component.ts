@@ -4,6 +4,7 @@ import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Router } from '@angular/router';
 import { CreditTransfer } from '../../model/creditTransfer';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-transfer-credit',
@@ -13,7 +14,7 @@ import { CreditTransfer } from '../../model/creditTransfer';
 export class TransferCreditComponent implements OnInit {
 
   angForm: FormGroup;
-  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router) {
+  constructor(private fb: FormBuilder, private fridgeService: FridgeService, private router: Router, private msal: MsalService) {
     this.createForm();
   }
   
@@ -29,11 +30,13 @@ export class TransferCreditComponent implements OnInit {
   }
   
   ngOnInit() {
+    var currentUser = this.msal.getUser();
+
     this.fridgeService.getFridgeUsers().subscribe((users: Array<string>) => {
       this.users = users;
     });
     
-    this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
+    this.fridgeService.getUserBeers(currentUser.name).subscribe((beers: Array<Beer>) => {
       this.beers = beers;  
     });
   }

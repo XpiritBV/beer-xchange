@@ -10,7 +10,7 @@ using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BeerAdditionController : ControllerBase
@@ -38,7 +38,7 @@ namespace Xpirit.BeerXchange.Controllers
             beer.Country = beerAdditionRequest.Country;
             beer.AddedDate = DateTime.Now;
 
-            if (beerAdditionRequest.switchedBeer.HasValue)
+            if (beerAdditionRequest.switchedBeer.HasValue && beerAdditionRequest.switchedBeer.Value != -1)
             {
                 var switchedBeer  = await beerService.GetBeerById(beerAdditionRequest.switchedBeer.Value);
                 if (switchedBeer.RemovedDate.HasValue || !string.IsNullOrEmpty(switchedBeer.RemovedBy))
