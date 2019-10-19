@@ -32,5 +32,5 @@ jobs:
            #deploy api to web app
            az webapp deployment source config-zip -g xpirit-beerxchange-prd -n xpirit-beerxchange-api --src api*.zip
            
-           #logout
-           az logout
+           #purge cdn
+           az cdn endpoint purge -g xpirit-beerxchange-prd -n xpirit-beerxchange --profile-name xpirit-beerxchange-prod --content-paths /
