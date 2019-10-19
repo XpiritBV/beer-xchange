@@ -10,7 +10,7 @@ using Xpirit.BeerXchange.Services;
 
 namespace Xpirit.BeerXchange.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BeerRemovalController : ControllerBase
@@ -30,11 +30,14 @@ namespace Xpirit.BeerXchange.Controllers
             {
                 return BadRequest("Not a valid Beer removal request");
             }
-
             var user = $"{User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.GivenName).FirstOrDefault().Value} {User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Surname).FirstOrDefault().Value}";
 
+            if (!(await beerService.GetUserCredits(user) > 0))
+            {
+                return BadRequest("User does not have enough credits to remove beer");
+            }
 
-            //User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Name).FirstOrDefault();
+
             var beer = await beerService.GetBeerById(beerRemovalRequest.BeerId);
             beer.RemovedDate = DateTime.Now;
             beer.RemovedBy = user;

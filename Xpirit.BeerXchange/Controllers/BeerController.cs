@@ -7,13 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Xpirit.BeerXchange.Model;
 using Xpirit.BeerXchange.Services;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Xpirit.BeerXchange.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    
+    [ApiController]
     public class BeerController : Controller
     {
         private readonly IBeerService beerService;
