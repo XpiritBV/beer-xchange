@@ -9,7 +9,7 @@ import { Beer } from 'src/app/model/beer';
   styleUrls: ['./fridge-beerlist-history.component.css']
 })
 export class FridgeBeerlistHistoryComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'createdBy', 'addedDate', 'removedBy', 'removedDate'];
+  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'addedDate', 'removedBy', 'removedDate'];
   
   private readonly _subscription: Subscription = new Subscription();
 

@@ -9,7 +9,7 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./fridge-beerlist-current.component.css']
 })
 export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'createdBy', 'addedDate'];
+  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'addedDate'];
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }

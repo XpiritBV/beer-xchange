@@ -34,6 +34,7 @@ import { FridgeBeerlistHistoryComponent } from './components/fridge-beerlist-his
 import { TransferCreditComponent } from './components/transfer-credit/transfer-credit.component';
 import { TakeBeerComponent } from './components/take-beer/take-beer.component';
 import { FridgeService } from './services/fridge.service';
+import { ListCreditComponent } from './components/list-credit/list-credit.component';
 
 export function initializeApp(appConfig: AppConfig) {
   const promise = appConfig.loadAppConfig().pipe(tap((settings: IAppConfig) => {
@@ -65,6 +66,7 @@ export function msalConfigFactory() {
     FridgeBeerlistHistoryComponent,
     TransferCreditComponent,
     TakeBeerComponent,
+    ListCreditComponent,
   ],
   imports: [
     MsalModule,

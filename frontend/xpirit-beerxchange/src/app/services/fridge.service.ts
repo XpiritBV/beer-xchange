@@ -6,6 +6,7 @@ import { Beer } from '../model/beer';
 import { BeerAddition } from '../model/beerAddition';
 import { BeerRemoval } from '../model/beerRemoval';
 import { CreditTransfer } from '../model/creditTransfer';
+import { UserCredits } from '../model/userCredits';
 
 
 @Injectable({
@@ -46,5 +47,9 @@ export class FridgeService {
 
   getFridgeUsers(): Observable<Array<string>>{
     return this.http.get<Array<string>>(`${AppConfig.settings.apiUrl}/user`);
+  }
+
+  getUserCredits(): Observable<Array<UserCredits>>{
+    return this.http.get<Array<UserCredits>>(`${AppConfig.settings.apiUrl}/credit`);
   }
 }
