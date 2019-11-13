@@ -18,7 +18,7 @@ export class TakeBeerComponent implements OnInit {
 
   ngOnInit() {
     this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
-      this.beers = beers;
+      this.beers = beers.sort((x,y) => x.name > y.name ? 1 : -1);
     });
 
     this.angForm = this.fb.group({

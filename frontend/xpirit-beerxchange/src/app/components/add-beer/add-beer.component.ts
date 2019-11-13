@@ -47,6 +47,7 @@ export class AddBeerComponent implements OnInit {
         name: "i do not want to take a beer at this moment",
         id: -1
       }
+      beers = beers.sort((x,y) => x.name > y.name ? 1 : -1);
       beers.unshift(noBeer);
       this.switchedForBeers = beers;  
       this.selectedBeer = noBeer.id;
