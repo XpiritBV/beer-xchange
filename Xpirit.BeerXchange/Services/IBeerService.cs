@@ -21,5 +21,6 @@ namespace Xpirit.BeerXchange.Services
 
         //IEnumerable<BeerDrinker> GetAllBeerDrinkers();
         Task<int> GetUserCredits(string user);
+        Task<List<UserCredits>> GetAllUserCredits();
     }
 }

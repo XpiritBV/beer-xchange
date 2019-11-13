@@ -63,5 +63,21 @@ namespace Xpirit.BeerXchange.Services
         {
             return await context.Beer.CountAsync(b => b.CreatedBy == user) - await context.Beer.CountAsync(b => b.RemovedBy == user);
         }
+
+        public async Task<List<UserCredits>> GetAllUserCredits()
+        {
+            List<UserCredits> userCredits = new List<UserCredits>();
+            foreach (var user in context.Beer.Select(b => b.CreatedBy).Distinct())
+            {
+                UserCredits credit = new UserCredits()
+                {
+                    Name = user,
+                    Credits = await context.Beer.CountAsync(b => b.CreatedBy == user) - await context.Beer.CountAsync(b => b.RemovedBy == user)
+                };
+                userCredits.Add(credit);
+            }
+
+            return userCredits;
+        }
     }
 }

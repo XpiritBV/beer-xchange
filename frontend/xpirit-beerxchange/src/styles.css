@@ -22,6 +22,10 @@ mat-sidenav {
   width: 300px;
 }
 
+.topbar-small{
+  font-size: 14px;
+}
+
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox. 
        Every toolbar row uses a flexbox row layout. */

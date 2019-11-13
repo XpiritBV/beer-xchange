@@ -27,5 +27,12 @@ namespace Xpirit.BeerXchange.Controllers
         {
             return await beerService.GetUserCredits(id);
         }
+
+        // GET api/<controller>
+        [HttpGet]
+        public async Task<List<UserCredits>> Get()
+        {
+            return await beerService.GetAllUserCredits();
+        }
     }
 }
