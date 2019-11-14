@@ -1,4 +1,5 @@
 <h2>Fridge history <span  *ngIf="beers.length > 0">({{beers.length}})</span></h2>
+<p *ngIf="!(beers.length > 0)"><em>Loading beers...</em></p>
 
 <div class="mat-elevation-z8">
 <table mat-table [dataSource]="beers" class="w-100" *ngIf="beers.length > 0">
