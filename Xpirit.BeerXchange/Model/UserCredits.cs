@@ -9,5 +9,7 @@ namespace Xpirit.BeerXchange.Model
     {
         public string Name { get; set; }
         public int Credits { get; set; }
+        public int BeersAdded { get; set; }
+        public int BeersTaken { get; set; }
     }
 }

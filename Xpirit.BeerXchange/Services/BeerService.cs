@@ -74,15 +74,20 @@ namespace Xpirit.BeerXchange.Services
             List<UserCredits> userCredits = new List<UserCredits>();
             foreach (var user in beers.Select(b => b.CreatedBy).Distinct())
             {
+                var beersAdded = beers.Count(b => b.CreatedBy == user);
+                var beersTaken = beers.Count(b => b.RemovedBy == user);
+
                 UserCredits credit = new UserCredits()
                 {
                     Name = user,
-                    Credits = beers.Count(b => b.CreatedBy == user) - beers.Count(b => b.RemovedBy == user)
+                    BeersAdded = beersAdded,
+                    BeersTaken = beersTaken,
+                    Credits = beersAdded - beersTaken
                 };
                 userCredits.Add(credit);
             }
 
-            return userCredits;
+            return userCredits.OrderBy(c => c.Name).ToList();
         }
     }
 }

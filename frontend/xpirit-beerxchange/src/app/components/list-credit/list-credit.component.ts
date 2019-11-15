@@ -9,7 +9,7 @@ import { UserCredits } from '../../model/userCredits';
   styleUrls: ['./list-credit.component.css']
 })
 export class ListCreditComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'credits'];
+  displayedColumns: string[] = ['name', 'credits', 'beersAdded', 'beersTaken'];
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }
@@ -24,7 +24,7 @@ export class ListCreditComponent implements OnInit {
 
   setUserCreditList() {
     this._subscription.add(this.fridgeService.getUserCredits().subscribe((userCredits: Array<UserCredits>) => {
-      this.userCredits = userCredits;
+      this.userCredits = userCredits.sort((x,y) => x.name > y.name ? 1 : -1);
     }));
   }
 
