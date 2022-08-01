@@ -22,7 +22,7 @@ jobs:
         with:
           submodules: true
       - name: npm install  
-        run: npm install
+        run: npm install --force
       - name: Build Frontend
         run: ng build  
       - name: Deploy Frontend
