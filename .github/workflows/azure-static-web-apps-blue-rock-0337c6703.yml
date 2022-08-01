@@ -33,7 +33,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           skip_app_build: true
-          app_location: "frontend/xpirit-beerxchange/dist" # App source code path
+          app_location: "frontend/xpirit-beerxchange/dist/xpirit-beerxchange" # App source code path
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
