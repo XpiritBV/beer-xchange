@@ -24,7 +24,7 @@ jobs:
       - name: npm install  
         run: npm install --force
       - name: Build Frontend
-        run: ng build  
+        run: npm run build  
       - name: Deploy Frontend
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
