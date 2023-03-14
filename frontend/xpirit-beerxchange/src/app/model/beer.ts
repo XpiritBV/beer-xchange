@@ -9,4 +9,5 @@ export interface Beer {
     removedDate: Date;
     removedBy: string;
     switchedForId: number;
+    explaination: string;
 }

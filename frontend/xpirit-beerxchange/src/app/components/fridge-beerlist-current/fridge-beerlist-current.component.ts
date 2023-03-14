@@ -13,7 +13,7 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }
-  
+
   beers: Array<Beer> = [];
 
   ngOnInit() {
@@ -25,6 +25,12 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
   setBeerList() {
     this._subscription.add(this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
       this.beers = beers;
+    }));
+  }
+
+  explainBeer(beer: Beer) {
+    this._subscription.add(this.fridgeService.explainBeer(beer).subscribe((explanation: string) => {
+      alert(explanation);
     }));
   }
 

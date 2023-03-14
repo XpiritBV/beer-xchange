@@ -14,6 +14,7 @@ import { UserCredits } from '../model/userCredits';
 })
 export class FridgeService {
 
+
   constructor(private http: HttpClient) {
   }
 
@@ -31,6 +32,10 @@ export class FridgeService {
 
   getHistoricalBeers(): Observable<Array<Beer>>{
     return this.http.get<Array<Beer>>(`${AppConfig.settings.apiUrl}/beer`).map(beers => beers.filter(b => b.removedBy != null));
+  }
+
+  explainBeer(beer: Beer) {
+    return this.http.get<string>(`${AppConfig.settings.apiUrl}/beer/${beer.id}/explain`);
   }
 
   addBeer(beer: BeerAddition): Observable<void>{

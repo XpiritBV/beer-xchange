@@ -1,4 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Toolkit.Parsers.Markdown;
+using OpenAI.GPT3.Interfaces;
+using OpenAI.GPT3.ObjectModels;
+using OpenAI.GPT3.ObjectModels.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +14,12 @@ namespace Xpirit.BeerXchange.Services
     public class BeerService : IBeerService
     {
         private readonly BeerXchangeContext context;
+        private readonly IOpenAIService openAiService;
 
-        public BeerService(BeerXchangeContext context)
+        public BeerService(BeerXchangeContext context, IOpenAIService openAiService)
         {
             this.context = context;
+            this.openAiService = openAiService;
         }
 
         public async Task AddBeer(Beer beer)
@@ -26,6 +32,11 @@ namespace Xpirit.BeerXchange.Services
         {
             return await context.Beer.ToListAsync();
         }
+
+
+
+
+
 
         public async Task<Beer> GetBeerById(int id)
         {
@@ -52,7 +63,7 @@ namespace Xpirit.BeerXchange.Services
             var existingBeer = await context.Beer.SingleOrDefaultAsync(b => b.Id == beer.Id);
             if (existingBeer is null)
             {
-                throw new ArgumentException(nameof(beer),$"Beer with Id {beer.Id} does not exist");
+                throw new ArgumentException(nameof(beer), $"Beer with Id {beer.Id} does not exist");
             }
 
             context.Update(beer);
@@ -88,6 +99,51 @@ namespace Xpirit.BeerXchange.Services
             }
 
             return userCredits.OrderBy(c => c.Name).ToList();
+        }
+
+        // GET API Method explain beer by id
+        public async Task<string> GetBeerExplainById(int id)
+        {
+            var beer = await context.Beer.SingleAsync(b => b.Id == id);
+
+            return await HoldMyBeer(beer);
+        }
+
+        public async Task<string> HoldMyBeer(Beer beer)
+        {
+
+            var systemPrompt =
+"""
+            I want to act as a Cicerone
+            I will give you details about a beer and you will tell me some interesting facts about it
+            It needs to be conficing, so that the user will buy it
+""";
+
+            var userPrompt = $"Name: {beer.Name}, Country: {beer.Country}, Brewery {beer.Brewery}";
+
+            var completionResult = await openAiService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            {
+                Messages = new List<ChatMessage>
+            {
+                ChatMessage.FromSystem(systemPrompt),
+                ChatMessage.FromUser(userPrompt)
+            },
+                Model = Models.ChatGpt3_5Turbo0301,
+
+                // MaxTokens = 50
+            });
+
+
+            if (completionResult.Successful)
+            {
+                Console.WriteLine(completionResult.Choices.First().Message.Content);
+            }
+
+            var content = completionResult.Choices.First().Message.Content;
+            MarkdownDocument markdownDocument = new MarkdownDocument();
+            markdownDocument.Parse(content);
+
+            return "";
         }
     }
 }
