@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FridgeService } from 'src/app/services/fridge.service';
 import { Beer } from 'src/app/model/beer';
 import { Subscription, timer } from 'rxjs';
+import { ExplainationResult } from 'src/app/model/ExplainationResult';
 
 @Component({
   selector: 'app-fridge-beerlist-current',
@@ -9,7 +10,7 @@ import { Subscription, timer } from 'rxjs';
   styleUrls: ['./fridge-beerlist-current.component.css']
 })
 export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'addedDate'];
+  displayedColumns: string[] = ['name', 'brewery', 'country', 'createdBy', 'addedDate', 'explaination'];
   private readonly _subscription: Subscription = new Subscription();
 
   constructor(private fridgeService: FridgeService) { }
@@ -29,8 +30,8 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
   }
 
   explainBeer(beer: Beer) {
-    this._subscription.add(this.fridgeService.explainBeer(beer).subscribe((explanation: string) => {
-      alert(explanation);
+    this._subscription.add(this.fridgeService.explainBeer(beer).subscribe((result: ExplainationResult) => {
+      alert(result.explaination);
     }));
   }
 

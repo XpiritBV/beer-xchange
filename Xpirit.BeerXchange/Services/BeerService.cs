@@ -33,11 +33,6 @@ namespace Xpirit.BeerXchange.Services
             return await context.Beer.ToListAsync();
         }
 
-
-
-
-
-
         public async Task<Beer> GetBeerById(int id)
         {
             return await context.Beer.SingleAsync(b => b.Id == id);
@@ -102,7 +97,7 @@ namespace Xpirit.BeerXchange.Services
         }
 
         // GET API Method explain beer by id
-        public async Task<string> GetBeerExplainById(int id)
+        public async Task<string> ExplainBeerById(int id)
         {
             var beer = await context.Beer.SingleAsync(b => b.Id == id);
 
@@ -116,7 +111,8 @@ namespace Xpirit.BeerXchange.Services
 """
             I want to act as a Cicerone
             I will give you details about a beer and you will tell me some interesting facts about it
-            It needs to be conficing, so that the user will buy it
+            you need to be conficing, so that the user will buy it
+            you will only make it one parapraph long
 """;
 
             var userPrompt = $"Name: {beer.Name}, Country: {beer.Country}, Brewery {beer.Brewery}";
@@ -128,22 +124,19 @@ namespace Xpirit.BeerXchange.Services
                 ChatMessage.FromSystem(systemPrompt),
                 ChatMessage.FromUser(userPrompt)
             },
-                Model = Models.ChatGpt3_5Turbo0301,
-
-                // MaxTokens = 50
+                Model = Models.ChatGpt3_5Turbo,
+                MaxTokens = 100,
             });
 
 
             if (completionResult.Successful)
             {
                 Console.WriteLine(completionResult.Choices.First().Message.Content);
+                return completionResult.Choices.First().Message.Content;
+            }else{
+                Console.WriteLine("Not Successful");
+                return "Couldn't explain the beer";
             }
-
-            var content = completionResult.Choices.First().Message.Content;
-            MarkdownDocument markdownDocument = new MarkdownDocument();
-            markdownDocument.Parse(content);
-
-            return "";
         }
     }
 }

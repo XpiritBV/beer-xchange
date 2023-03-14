@@ -7,6 +7,7 @@ import { BeerAddition } from '../model/beerAddition';
 import { BeerRemoval } from '../model/beerRemoval';
 import { CreditTransfer } from '../model/creditTransfer';
 import { UserCredits } from '../model/userCredits';
+import { ExplainationResult } from '../model/ExplainationResult';
 
 
 @Injectable({
@@ -35,7 +36,7 @@ export class FridgeService {
   }
 
   explainBeer(beer: Beer) {
-    return this.http.get<string>(`${AppConfig.settings.apiUrl}/beer/${beer.id}/explain`);
+    return this.http.get<ExplainationResult>(`${AppConfig.settings.apiUrl}/beer/${beer.id}/explain`);
   }
 
   addBeer(beer: BeerAddition): Observable<void>{

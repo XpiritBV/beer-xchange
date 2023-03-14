@@ -35,9 +35,23 @@ namespace Xpirit.BeerXchange.Controllers
             return await beerService.GetBeerById(id);
         }
 
+        // GET api/<controller>/5/explain
+        [HttpGet("{id}/explain")]
+        public async Task<ExplainationResult> GetExplaination(int id)
+        {
+            var explaination = await beerService.ExplainBeerById(id);
+
+            var explainationResult = new ExplainationResult()
+            {
+                Explaination = explaination
+            };
+
+            return explainationResult;
+        }
+
         // POST api/<controller>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Beer beer)
+        public async Task<IActionResult> Post([FromBody] Beer beer)
         {
             await beerService.AddBeer(beer);
             return Ok(beer);
