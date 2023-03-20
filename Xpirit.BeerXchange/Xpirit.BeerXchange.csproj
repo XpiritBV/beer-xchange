@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Betalgo.OpenAI.GPT3" Version="6.7.3" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="0.8.48.1-preview" />
     <PackageReference Include="Microsoft.Toolkit.Parsers" Version="6.1.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0" />
@@ -20,7 +20,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc" Version="7.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
-    <PackageReference Include="System.Text.Json" Version="7.0.0" />
 
   </ItemGroup>
 

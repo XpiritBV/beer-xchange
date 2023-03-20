@@ -13,8 +13,6 @@ namespace Xpirit.BeerXchange.Services
         Task<IEnumerable<Beer>> GetBeerHistory();
         Task<Beer> GetBeerById(int id);
 
-        Task<string> ExplainBeerById(int id);
-
         Task AddBeer(Beer beer);
         Task UpdateBeer(Beer beer);
 
