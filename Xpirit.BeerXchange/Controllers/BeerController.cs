@@ -53,7 +53,7 @@ I want you to be convincing so that my friends will buy this beer
 I also want you to make it one paragraph
 """;
 
-            var beerDetails = $"Name: {beer.Name}, Brewery: {beer.Brewery}";
+            var beerDetails = $"Nme: {beer.Name}, Brewery: {beer.Brewery}";
 
             var beerDetailsFunction = _kernel.CreateSemanticFunction(systemPrompt);
 
