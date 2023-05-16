@@ -27,7 +27,10 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
 
   setBeerList() {
     this._subscription.add(this.fridgeService.getCurrentBeers().subscribe((beers: Array<Beer>) => {
-      this.beers = beers;
+      // sort by added date
+      this.beers = beers.sort((a, b) => {
+        return new Date(b.addedDate).getTime() - new Date(a.addedDate).getTime();
+      });
     }));
   }
 

@@ -31,7 +31,7 @@ builder.Services.AddCors((options) =>
 
 builder.Services.AddOpenAIService(settings =>
 {
-    settings.ApiKey = "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";
+    settings.ApiKey = "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";
 });
 
 builder.Services.AddDbContext<BeerXchangeContext>(options =>

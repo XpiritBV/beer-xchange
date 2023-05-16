@@ -112,6 +112,7 @@ namespace Xpirit.BeerXchange.Services
             I want to act as a Cicerone
             I will give you details about a beer and you will tell me some interesting facts about it
             you need to be convincing, so that the user will buy it
+            write it in the style of a epic movie trailer with a Jungle Theme
             you will only make it one parapraph long
 """;
 
