@@ -17,6 +17,8 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
 
   beers: Array<Beer> = [];
 
+  beerExplanation: String = "";
+
   ngOnInit() {
     this._subscription.add(timer(0, 30000).subscribe(() => {
       this.setBeerList();
@@ -31,7 +33,7 @@ export class FridgeBeerlistCurrentComponent implements OnInit, OnDestroy {
 
   explainBeer(beer: Beer) {
     this._subscription.add(this.fridgeService.explainBeer(beer).subscribe((result: ExplainationResult) => {
-      alert(result.explaination);
+      this.beerExplanation = result.explaination;
     }));
   }
 

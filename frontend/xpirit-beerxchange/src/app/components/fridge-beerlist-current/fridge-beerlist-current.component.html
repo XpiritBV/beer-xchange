@@ -1,4 +1,8 @@
 <h2>Current beers <span  *ngIf="beers.length > 0">({{beers.length}})</span></h2>
+
+
+<div *ngIf="beerExplanation != ''" style="padding: 20px; background-color: yellow;"><h3>{{ beerExplanation }}</h3></div>
+
 <p *ngIf="!(beers.length > 0)"><em>Loading beers...</em></p>
 
 <div class="mat-elevation-z8">
