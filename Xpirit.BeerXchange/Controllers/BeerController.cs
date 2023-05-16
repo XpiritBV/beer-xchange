@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.KernelExtensions;
 using Xpirit.BeerXchange.Model;
 using Xpirit.BeerXchange.Services;
 
@@ -17,11 +15,9 @@ namespace Xpirit.BeerXchange.Controllers
     public class BeerController : Controller
     {
         private readonly IBeerService beerService;
-        private readonly IKernel _kernel;
 
-        public BeerController(IBeerService beerService, IKernel kernel)
+        public BeerController(IBeerService beerService)
         {
-            _kernel = kernel;
             this.beerService = beerService;
         }
 
@@ -39,30 +35,18 @@ namespace Xpirit.BeerXchange.Controllers
             return await beerService.GetBeerById(id);
         }
 
-        // GET Method explain my beer by id
+        // GET api/<controller>/5/explain
         [HttpGet("{id}/explain")]
-        public async Task<ExplainationResult> Explain(int id)
+        public async Task<ExplainationResult> GetExplaination(int id)
         {
-            var beer = await beerService.GetBeerById(id);
+            var explaination = await beerService.ExplainBeerById(id);
 
-            var systemPrompt =
-                """
-I want you to act as a Cicerone
-I will give you the details of my beer and you will give me a explaination of that beer
-I want you to be convincing so that my friends will buy this beer
-I also want you to make it one paragraph
-""";
-
-            var beerDetails = $"Nme: {beer.Name}, Brewery: {beer.Brewery}";
-
-            var beerDetailsFunction = _kernel.CreateSemanticFunction(systemPrompt);
-
-            var beerExplanation = await _kernel.RunAsync(beerDetails, beerDetailsFunction);
-
-            return new ExplainationResult
+            var explainationResult = new ExplainationResult()
             {
-                Explaination = beerExplanation.Result
+                Explaination = explaination
             };
+
+            return explainationResult;
         }
 
         // POST api/<controller>
